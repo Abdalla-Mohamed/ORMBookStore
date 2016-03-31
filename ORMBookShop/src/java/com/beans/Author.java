@@ -8,10 +8,13 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -46,8 +49,8 @@ public class Author  implements java.io.Serializable {
     }
    
      @Id 
-
-    
+@SequenceGenerator(name = "ORDER_BOOK_SEQ", sequenceName = "ORDER_BOOK_SEQ")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "ORDER_BOOK_SEQ")
     @Column(name="AUTH_ID", unique=true, nullable=false, precision=22, scale=0)
     public Integer getAuthId() {
         return this.authId;

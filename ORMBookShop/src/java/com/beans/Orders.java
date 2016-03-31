@@ -4,13 +4,17 @@ package com.beans;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -52,7 +56,8 @@ public class Orders implements java.io.Serializable {
     }
 
     @Id
-
+    @GeneratedValue(strategy = GenerationType.AUTO,generator ="ORDER_SEQ"  )
+    @SequenceGenerator(name = "ORDER_SEQ",sequenceName = "ORDER_SEQ_TMP")
     @Column(name = "ORDER_ID", unique = true, nullable = false, precision = 22, scale = 0)
     public Integer getOrderId() {
         return this.orderId;
@@ -62,7 +67,7 @@ public class Orders implements java.io.Serializable {
         this.orderId = orderId;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "CUSTOMER_ID")
     public Customer getCustomer() {
         return this.customer;
@@ -91,7 +96,8 @@ public class Orders implements java.io.Serializable {
         this.total = total;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "orders")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "orders" ,cascade = {CascadeType.ALL,CascadeType.REMOVE})
+    
     public Set<OrderBook> getOrderBooks() {
         return this.orderBooks;
     }

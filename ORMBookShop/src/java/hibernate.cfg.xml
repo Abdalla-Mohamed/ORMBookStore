@@ -4,9 +4,12 @@
   <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.OracleDialect</property>
     <property name="hibernate.connection.driver_class">oracle.jdbc.OracleDriver</property>
-    <property name="hibernate.connection.url">jdbc:oracle:thin:@localhost:1521:XE</property>
+    <property name="hibernate.connection.url">jdbc:oracle:thin:@localhost:1521:orcl</property>
     <property name="hibernate.connection.username">bookstore</property>
     <property name="hibernate.connection.password">bookdb</property>
+    <property name="hibernate.current_session_context_class">thread</property>
+    <property name="hibernate.show_sql">true</property>
+    <property name="hibernate.format_sql">true</property>
     <mapping class="com.beans.Category"/>
     <mapping class="com.beans.ChargingCard"/>
     <mapping class="com.beans.OrderBook"/>

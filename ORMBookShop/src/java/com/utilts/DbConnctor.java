@@ -17,29 +17,28 @@ import org.hibernate.cfg.AnnotationConfiguration;
  *
  * @author Abdalla
  */
+
+
 public class DbConnctor {
 
-    static private  AnnotationConfiguration configure;
+    static private AnnotationConfiguration configure;
     static private SessionFactory sessionFactory;
-    static private Session session; 
+    static private Session session;
 
-           
     private DbConnctor() {
-        configure = new AnnotationConfiguration().configure("hibernate.cfg.xml")
-                //                .setInterceptor(new InterceptorInsert())
-                .addPackage(" hyperwithannotations.entyties").configure();
-
-        sessionFactory = configure.buildSessionFactory();
-           
-         
 
     }
 
     static synchronized public Session opensession() throws SQLException {
 
         if (session == null || !session.isOpen()) {
-                  session = sessionFactory.getCurrentSession();
+            configure = new AnnotationConfiguration().configure("hibernate.cfg.xml")
+                    //                .setInterceptor(new InterceptorInsert())
+                    .addPackage(" hyperwithannotations.entyties").configure();
 
+            sessionFactory = configure.buildSessionFactory();
+
+            session = sessionFactory.getCurrentSession();
 
         }
         return session;
