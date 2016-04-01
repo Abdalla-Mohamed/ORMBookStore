@@ -27,15 +27,7 @@ import org.hibernate.Query;
  * @author Administrator
  */
 public class Cart_Dao {
-
-//    private static final String CountOfBookInCart = "select NVL(sum(C_B_COUNT),0) from BOOKSTORE.CART WHERE  C_ID=? and B_ID=?";
-    private static final String SQL_READ = "SELECT * FROM CART WHERE C_ID= ? ORDER BY B_ID desc";
-    private static final String SQL_INSERT = "INSERT INTO CART(B_ID,C_ID,C_B_COUNT) VALUES(?,?,?)";
-    private static final String SQL_UPDATE = "UPDATE CART SET C_B_COUNT=? WHERE C_ID=? and B_ID=?";
-    private static final String SQL_DELETE = "DELETE FROM CART WHERE C_ID=? and B_ID=?";
-    private static final String SQL_DELETE_USER_CART = "DELETE FROM CART WHERE C_ID=? ";
-
-    private static final String HQL_READ = "FROM  Cart  C  where C.customer.CId=?";
+   private static final String HQL_READ = "FROM  Cart  C  where C.customer.CId=?";
     private static final String CountOfBookInCart = "select NVL(sum(CBCount),0) from  Cart c  where  c.customer.CId= ? and c.book.BIsbn=?";
     private static final String HQL_DELETE = "DELETE  Cart C  WHERE C.customer.CId=?  and C.book.BIsbn=?";
     private static final String HQL_UPDATE = "UPDATE Cart   C set CBCount=? WHERE C.customer.CId=? and C.book.BIsbn=?";
