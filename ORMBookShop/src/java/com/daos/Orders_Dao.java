@@ -7,15 +7,9 @@ package com.daos;
 
 import org.hibernate.Session;
 
-import com.beans.Customer;
-import com.beans.OrderBook;
 import com.beans.Orders;
 import com.utilts.DbConnctor;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Query;
@@ -40,6 +34,7 @@ public class Orders_Dao {
 
             
         } catch (SQLException ex) {
+             session.getTransaction().rollback();
             ex.printStackTrace();
         }
     }
@@ -53,6 +48,7 @@ public class Orders_Dao {
             session.getTransaction().commit();
 
         } catch (SQLException ex) {
+                     session.getTransaction().rollback();
             ex.printStackTrace();
         }
     }
@@ -69,6 +65,7 @@ public class Orders_Dao {
             session.getTransaction().commit();
 
         } catch (SQLException ex) {
+             session.getTransaction().rollback();
             ex.printStackTrace();
 
         }
@@ -80,13 +77,14 @@ public class Orders_Dao {
         ArrayList arr = new ArrayList();
         try {
               session = DbConnctor.opensession();
-            session.getTransaction().begin();
+//            session.getTransaction().begin();
             Orders order = (Orders) session.get(Orders.class,id);
-            session.getTransaction().commit();
+//            session.getTransaction().commit();
             arr.add(order);
             
         } catch (SQLException ex) {
-            ex.printStackTrace();
+               
+  ex.printStackTrace();
         }
 
         return arr;
@@ -103,9 +101,7 @@ public class Orders_Dao {
             
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            DbConnctor.closesession();
-        }
+        } 
 
         return orderList;
     }

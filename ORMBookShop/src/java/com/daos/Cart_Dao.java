@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.daos; import org.hibernate.Session;
+package com.daos;
+
+import org.hibernate.Session;
 
 import com.beans.Book;
 import com.beans.Customer;
@@ -17,6 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
 
 /**
  *
@@ -24,152 +28,117 @@ import java.util.logging.Logger;
  */
 public class Cart_Dao {
 
-    private static final String CountOfBookInCart = "select NVL(sum(C_B_COUNT),0) from BOOKSTORE.CART WHERE  C_ID=? and B_ID=?";
+//    private static final String CountOfBookInCart = "select NVL(sum(C_B_COUNT),0) from BOOKSTORE.CART WHERE  C_ID=? and B_ID=?";
     private static final String SQL_READ = "SELECT * FROM CART WHERE C_ID= ? ORDER BY B_ID desc";
     private static final String SQL_INSERT = "INSERT INTO CART(B_ID,C_ID,C_B_COUNT) VALUES(?,?,?)";
     private static final String SQL_UPDATE = "UPDATE CART SET C_B_COUNT=? WHERE C_ID=? and B_ID=?";
     private static final String SQL_DELETE = "DELETE FROM CART WHERE C_ID=? and B_ID=?";
     private static final String SQL_DELETE_USER_CART = "DELETE FROM CART WHERE C_ID=? ";
 
-    Session session = null;
-    PreparedStatement statement = null;
-    ResultSet resultSet = null;
+    private static final String HQL_READ = "FROM  Cart  C  where C.customer.CId=?";
+    private static final String CountOfBookInCart = "select NVL(sum(CBCount),0) from  Cart c  where  c.customer.CId= ? and c.book.BIsbn=?";
+    private static final String HQL_DELETE = "DELETE  Cart C  WHERE C.customer.CId=?  and C.book.BIsbn=?";
+    private static final String HQL_UPDATE = "UPDATE Cart   C set CBCount=? WHERE C.customer.CId=? and C.book.BIsbn=?";
+    private static final String HQL_DELETE_USER_CART = "DELETE  Cart C  WHERE C.customer.CId=?";
 
+    private  Session session = null;
+   
     public Cart_Dao() {
 
     }
 
     public int countInCart(Cart cartObj) throws SQLException {
-       int count=0;
+        int count = 0;
         try {
-
             session = DbConnctor.opensession();
-//            statement = session.prepareStatement(CountOfBookInCart);
-//            statement.setInt(1, cartObj.getCustomerId());
-//            statement.setInt(2, cartObj.getBookId());
-           ResultSet executeQuery = statement.executeQuery();
-           executeQuery.next();
-           
-           count=executeQuery.getInt(1);
+           session.getTransaction().begin();
+            Query query = session.createQuery(CountOfBookInCart).setParameter(0, cartObj.getId().getCId()).setParameter(1, cartObj.getId().getBId());
+            count =( (Long)query.uniqueResult()).intValue();
+            session.getTransaction().commit();
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            DbConnctor.closesession();
         }
         return count;
     }
 
     public boolean add(Cart cartObj) throws SQLException {
-        try {
 
+        try {
             session = DbConnctor.opensession();
-//            statement = session.prepareStatement(SQL_INSERT);
-//            statement.setInt(1, cartObj.getBookId());
-//            statement.setInt(2, cartObj.getCustomerId());
-//            statement.setInt(3, cartObj.getCBCount());
-            if (statement.executeUpdate() > 0) {
-                return true;
-            }
-//            session.commit();
-        } catch (SQLException e) {
+            session.beginTransaction();
+            session.saveOrUpdate(cartObj);
+            session.getTransaction().commit();
+            return true;
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
             e.printStackTrace();
-        } finally {
-            DbConnctor.closesession();
+            return false;
         }
-        return false;
     }
 
     public boolean update(Cart cartObj) throws SQLException {
 
         try {
+
             session = DbConnctor.opensession();
-//            statement = session.prepareStatement(SQL_UPDATE);
-            statement.setInt(1, cartObj.getCBCount());
-//            statement.setInt(2, cartObj.getCustomerId());
-//            statement.setInt(3, cartObj.getBookId());
-            if (statement.executeUpdate() > 0) {
-                return true;
-            }
-//            session.commit();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            DbConnctor.closesession();
+            session.getTransaction().begin();
+            session.merge(cartObj);
+            session.getTransaction().commit();
+            return true;
+        } catch (SQLException ex) {
+            session.getTransaction().rollback();
+            ex.printStackTrace();
+            return false;
         }
-        return false;
     }
 
     public boolean delete(Cart cartItem) throws SQLException {
 
         try {
+
             session = DbConnctor.opensession();
-//            statement = session.prepareStatement(SQL_DELETE);
-//            statement.setInt(1, cartItem.getCustomerId());
-//            statement.setInt(2, cartItem.getBookId());
-            if (statement.executeUpdate() > 0) {
-                return true;
-            }
-//            session.commit();
-        } catch (SQLException e) {
+            session.getTransaction().begin();
+            session.delete(cartItem);
+            session.getTransaction().commit();
+
+            return true;
+        } catch (HibernateException e) {
             e.printStackTrace();
-        } finally {
-            DbConnctor.closesession();
+            return false;
         }
-        return false;
+
     }
 
     public List<Cart> readAll(int customerID) throws SQLException {
         List<Cart> cartList = null;
         try {
             session = DbConnctor.opensession();
-            Cart cart = null;
-//            statement = session.prepareStatement(SQL_READ);
-            statement.setInt(1, customerID);
-            resultSet = statement.executeQuery();
-            cartList = getCart(resultSet);
+            session.beginTransaction();
+            Query query = session.createQuery(HQL_READ).setParameter(0, customerID);;
+            cartList = query.list();
+            session.getTransaction().commit();
+
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            DbConnctor.closesession();
         }
+
         return cartList;
     }
 
-    private List<Cart> getCart(ResultSet result) {
-
-        List<Cart> list =null;
-        Cart cartItem;
-        try {
-            while (result.next()) {
-                if(list == null){
-                    list = new ArrayList<>();
-                }
-                cartItem = new Cart();
-                cartItem.setCBCount(result.getInt("C_B_COUNT"));
-//                cartItem.setCustomer(new Customer(result.getInt("C_ID")));
-                //bookObj.setBDescription(result.getString("B_DESCRIPTION"));
-                list.add(cartItem);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Interests_Dao.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return list;
-    }
-
+  
     public boolean freeCartOfCustmer(int customerId) throws SQLException {
-       boolean isDeleted = false;
+        boolean isDeleted = false;
         try {
             session = DbConnctor.opensession();
-//            statement = session.prepareStatement(SQL_DELETE_USER_CART);
-            statement.setInt(1, customerId);
-            if (statement.executeUpdate() > 0) {
-                isDeleted= true;
-            }
-//            session.commit();
-        } catch (SQLException e) {
+            session.beginTransaction();
+            Query query = session.createQuery(HQL_DELETE_USER_CART).setInteger(0, customerId);
+            query.executeUpdate();
+            session.getTransaction().commit();
+
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
             e.printStackTrace();
-        } finally {
-            DbConnctor.closesession();
+
         }
         return isDeleted;
     }
