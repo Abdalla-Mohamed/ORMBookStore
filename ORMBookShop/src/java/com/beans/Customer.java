@@ -64,8 +64,8 @@ public class Customer  implements java.io.Serializable {
     }
    
      @Id 
-@SequenceGenerator(name = "ORDER_BOOK_SEQ", sequenceName = "ORDER_BOOK_SEQ")
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "ORDER_BOOK_SEQ")
+@SequenceGenerator(name = "CUSTOMER_SEQ_TMP", sequenceName = "CUSTOMER_SEQ_TMP")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "CUSTOMER_SEQ_TMP")
     @Column(name="C_ID", unique=true, nullable=false, precision=22, scale=0)
     public Integer getCId() {
         return this.CId;

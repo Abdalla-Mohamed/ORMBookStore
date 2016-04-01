@@ -3,290 +3,178 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.daos; import org.hibernate.Session;
+package com.daos; 
 
 import com.beans.Customer;
 import com.utilts.DbConnctor;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
 /**
  *
- * @author ElGazzar
+ * @author Hosam
  */
 public class Customer_Dao {
-
+    
     Session session = null;
-    PreparedStatement pstatement = null;
-    Statement statement = null;
-    ResultSet resultSet = null;
-    
-    private static final String SELECT_CRIDIT ="select C_CREDIT from BOOKSTORE.CUSTOMER WHERE C_ID =?";
-    private static final String UPDATE ="UPDATE CUSTOMER SET C_NAME=?,C_PASSWORD=?,C_JOB=?,C_ADDRESS=?,"
-            +"C_MOBILE=? WHERE C_ID=?";
-    private static final String UPDATE_CREDIT ="UPDATE CUSTOMER SET C_CREDIT = ? WHERE C_ID=? ";
-    
-    public Customer_Dao() {
-    }
+            
+    private static final String HQL_VALID = "from Customer c where c.CEmail = ?";
+    private static final String HQL_LOGIN = "FROM Customer c WHERE c.CEmail =? AND c.CPassword =? ";
+    private static final String HQL_GET_ALL = "FROM Customer";
+    private static final String HQL_FIND_BY_NAME = "FROM Customer c where c.CName = ?";
+    private static final String HQL_GET_CREDIT = "SELECT c.CCredit FROM Customer c where c.CId = ?";
 
-    public boolean validEmail(String email) throws SQLException {
-        try {
+    
+    
+      public boolean validEmail(String email) throws SQLException {
+        
+          boolean valid = false;
+          
+          
             session = DbConnctor.opensession();
-//            statement = session.createStatement();
-            String validSQL = "SELECT * FROM CUSTOMER WHERE C_EMAIL = '" + email + "'";
-            resultSet = statement.executeQuery(validSQL);
-
-            if (resultSet.next()) {
-                return true;
-            } else {
-                return false;
-            }
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } finally {
-            DbConnctor.closesession();
-        }
-        return true;
+            session.getTransaction().begin();
+            
+          Query query=session.createQuery(HQL_VALID).setString(0, email);
+           List l= query.list();
+           
+            if (l.size()>0) {
+                valid = true;
+            } 
+        
+        DbConnctor.closesession();
+        
+        return valid;
     }
-
-    public Customer login(String email, String passwd) throws SQLException {
+      
+      
+      
+      public Customer login(String email, String passwd) throws SQLException {
 
         Customer customer = null;
-
-        try {
-            session = DbConnctor.opensession();
-//            statement = session.createStatement();
-            String query = "SELECT * FROM CUSTOMER WHERE C_EMAIL ='" + email + "' AND C_PASSWORD ='" + passwd + "' ";
-
-            resultSet = statement.executeQuery(query);
-
-            if (resultSet.next()) {
-
-                customer = getCustomer(resultSet);
-
-            } else {
-                return null;
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-
-        } finally {
-            DbConnctor.closesession();
+        
+        session = DbConnctor.opensession();
+        session.getTransaction().begin();
+        
+        Query query=session.createQuery(HQL_LOGIN).setString(0, email).setString(1, passwd);
+        List l= query.list();
+        if (l.size()>0){
+           
+              customer= (Customer)l.get(0);
         }
+               
+        DbConnctor.closesession();
+        
         return customer;
-    }
-
-    public boolean signUp(Customer c) throws SQLException {
+      }
+      
+      
+       public boolean signUp(Customer c) throws SQLException {
         
         Boolean valid=false;
         
-        if (!validEmail(c.getCEmail())) {
-            try {
+         if (!validEmail(c.getCEmail())) {
+            
                 valid=true;
                 
                 c.setCCredit(0);
-
-                session = DbConnctor.opensession();
-                String sql = "INSERT INTO CUSTOMER(C_NAME,C_EMAIL,C_PASSWORD,C_JOB,C_ADDRESS,C_MOBILE,C_CREDIT,C_ID)"
-                        + "VALUES(?,?,?,?,?,?,?,CUSTOMER_SEQ_TMP.NEXTVAL)";
-//                pstatement = session.prepareStatement(sql);
-
-                pstatement.setString(1, c.getCName());
-                pstatement.setString(2, c.getCEmail());
-                pstatement.setString(3, c.getCPassword());
-                pstatement.setString(4, c.getCJob());
-                pstatement.setString(5, c.getCAddress());
-                pstatement.setString(6, c.getCMobile());
-                pstatement.setInt(7, c.getCCredit());
-
-                pstatement.executeUpdate();
-
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            } finally {
-
-                DbConnctor.closesession();
-            }
-            
-        }
         
-       
-        return valid;
-        
-         
-    }
-
-    public List<Customer> getAllCustomers() throws SQLException {
+            session = DbConnctor.opensession();
+            session.getTransaction().begin();
+            session.persist(c);
+            session.getTransaction().commit();
+               
+       }
+      return valid;
+      
+       }
+       public List<Customer> getAllCustomers() throws SQLException {
 
         List<Customer> customerList = new ArrayList<Customer>();
-        try {
-            session = DbConnctor.opensession();
-//            statement = session.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM CUSTOMER");
-            while (resultSet.next()) {
-                Customer customer = new Customer();
-
-                customer.setCName(resultSet.getString("C_NAME"));
-                customer.setCEmail(resultSet.getString("c_email"));
-                customer.setCPassword(resultSet.getString("c_password"));
-                customer.setCJob(resultSet.getString("c_job"));
-                customer.setCAddress(resultSet.getString("c_address"));
-                customer.setCMobile(resultSet.getString("c_mobile"));
-                customer.setCCredit(resultSet.getInt("c_credit"));
-                customerList.add(customer);
-                
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            DbConnctor.closesession();
-        }
-
+        session = DbConnctor.opensession();
+        session.getTransaction().begin();
+        
+        Query query=session.createQuery(HQL_GET_ALL);
+        customerList= query.list();
+        
+        DbConnctor.closesession();
+        
         return customerList;
-    }
+       }    
+       
+       
+     public List<Customer> findByName(String name) throws SQLException {
 
-    public ArrayList findByName(String name) throws SQLException {
-
-        ArrayList arr = new ArrayList();
-        try {
-            session = DbConnctor.opensession();;
-//            pstatement = session.prepareStatement("SELECT * FROM CUSTOMER WHERE C_NAME =?");
-            pstatement.setString(1, name);
-            resultSet = pstatement.executeQuery();
-            while (resultSet.next()) {
-                int id = resultSet.getInt("C_ID");
-                String cName = resultSet.getString("C_NAME");
-                String cEmail = resultSet.getString("c_email");
-                String passwd = resultSet.getString("c_password");
-                String cJob = resultSet.getString("c_job");
-                String cAddress = resultSet.getString("c_address");
-                String cMobile = resultSet.getString("c_mobile");
-                int cCredit = resultSet.getInt("c_credit");
-
-                Customer c = new Customer(id, cName, cEmail, passwd, cJob, cAddress, cMobile, cCredit, null, null, null);
-                arr.add(c);
-            }
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } finally {
-
-            DbConnctor.closesession();
-        }
-        return arr;
-    }
-
-    
-    public boolean update (Customer c) throws SQLException{
+       List<Customer> customerList = new ArrayList<Customer>();
+        
+        session = DbConnctor.opensession();
+        session.getTransaction().begin();
+        
+        Query query=session.createQuery(HQL_FIND_BY_NAME).setString(0, name);
+        customerList= query.list();
+        
+        DbConnctor.closesession();
+        
+        return customerList;
+     }
+   
+     
+     public boolean update (Customer c) throws SQLException{
                 
-        boolean updated;              
-        try {
+        boolean updated;   
+        
             session = DbConnctor.opensession();
-//            pstatement = session.prepareStatement(UPDATE);
-            
-            pstatement.setString(1, c.getCName());
-            pstatement.setString(2, c.getCPassword());
-            pstatement.setString(3, c.getCJob());
-            pstatement.setString(4, c.getCAddress());
-            pstatement.setString(5, c.getCMobile());
-            pstatement.setInt(6, c.getCId());
-            pstatement.executeUpdate();
-            
-            updated=true;
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(Customer_Dao.class.getName()).log(Level.SEVERE, null, ex);
-            updated=false;
-        }
-        return updated;
-    }
-    public boolean updateCredit (Customer c) throws SQLException{
+            session.getTransaction().begin();
+            session.merge(c);
+            session.getTransaction().commit();
+                       
+    return true;
+     }
+     
+     
+     
+      public boolean updateCredit (Customer c) throws SQLException{
                 
-        boolean updated;              
-        try {
-            session = DbConnctor.opensession();
-//            pstatement = session.prepareStatement(UPDATE_CREDIT);
-            
-            pstatement.setInt(1, c.getCCredit());
-            pstatement.setInt(2, c.getCId());
-            pstatement.executeUpdate();
-            
-            updated=true;
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(Customer_Dao.class.getName()).log(Level.SEVERE, null, ex);
-            updated=false;
-        }
-        return updated;
-    }
-    
-    public boolean deleteCustomer(int CustId) throws SQLException {
-        try {
-            session = DbConnctor.opensession();
-//            statement = session.createStatement();
-            String query = "DELETE FROM CUSTOMER WHERE C_ID='" + CustId + "'";
-
-            statement.executeUpdate(query);
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-
-        } finally {
-
-            DbConnctor.closesession();
-        }
-        return true;
-    }
-
-    private Customer getCustomer(ResultSet result) {
-
-        Customer customer = null ;
-        try {
-
-            
-                int id = resultSet.getInt("C_ID");
-                String cName = resultSet.getString("C_NAME");
-                String cEmail = resultSet.getString("c_email");
-                String passwd = resultSet.getString("c_password");
-                String cJob = resultSet.getString("c_job");
-                String cAddress = resultSet.getString("c_address");
-                String cMobile = resultSet.getString("c_mobile");
-                int cCredit = resultSet.getInt("c_credit");
-
-                 customer = new Customer(id, cName, cEmail, passwd, cJob, cAddress, cMobile, cCredit, null, null, null);
+        boolean updated;   
+        session = DbConnctor.opensession();
+            session.getTransaction().begin();
+            session.merge(c);
+            session.getTransaction().commit();
+                       
+    return true;
+     }
+      
+      
+      public boolean deleteCustomer(int CustId) throws SQLException {
            
+            session = DbConnctor.opensession();
+            session.getTransaction().begin();
+            session.delete(new Customer(CustId));
+            session.getTransaction().commit();
 
-        } catch (SQLException ex) {
-            Logger.getLogger(Customer_Dao.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return customer;
-    }
-
-    public double getCustomerCredit(int customerId) throws SQLException {
+            return true;
+      }
+      
+       public double getCustomerCredit(int customerId) throws SQLException {
           double cridit=0;
-        try {
-            session = DbConnctor.opensession();;
-//            pstatement = session.prepareStatement(SELECT_CRIDIT);
-            pstatement.setInt(1, customerId);
-            resultSet = pstatement.executeQuery();
-            while (resultSet.next()) {
-                cridit = resultSet.getInt(1);
-
-            }
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } finally {
-
-            DbConnctor.closesession();
-        }
-        return cridit;
-    }
+          Customer customer;
+            session = DbConnctor.opensession();
+            session.getTransaction().begin();
+            
+          Query query=session.createQuery(HQL_GET_CREDIT).setInteger(0, customerId);
+           List l= query.list();
+           
+            if (l.size()>0) {
+                cridit= (int) l.get(0) ;
+                
+            } 
+        
+        DbConnctor.closesession();
+      return  cridit;
+      
+       }
 }
+
