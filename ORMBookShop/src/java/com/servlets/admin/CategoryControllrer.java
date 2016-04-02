@@ -37,7 +37,7 @@ public class CategoryControllrer extends HttpServlet {
          try {
              //------------------------Add new category-------------------
              
-             categoryDao.add(category);
+             categoryDao.addCategory(category);
              
          } catch (SQLException ex) {
              Logger.getLogger(CategoryControllrer.class.getName()).log(Level.SEVERE, null, ex);

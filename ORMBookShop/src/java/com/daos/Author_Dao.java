@@ -96,11 +96,11 @@ public class Author_Dao {
     public List<Author> readAll() throws SQLException {
        
  List<Author> authorList = null;
-     session = DbConnctor.opensession();
-        session.beginTransaction();
+        session = DbConnctor.opensession();
+       session.beginTransaction();
         Query query = session.createQuery(HQL_READ);
         authorList = query.list();
- session.getTransaction().commit();
+       session.getTransaction().commit();
         return authorList;
         
     }

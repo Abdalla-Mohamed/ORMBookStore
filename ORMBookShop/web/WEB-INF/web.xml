@@ -8,7 +8,7 @@
         <description>ServletContextListener, HttpSessionListener</description>
         <listener-class>com.listeners.OnLineListener</listener-class>
     </listener>
-     <security-constraint>
+    <security-constraint>
         <display-name>adminPrivacy</display-name>
         <web-resource-collection>
             <web-resource-name>admin pages</web-resource-name>
@@ -27,7 +27,6 @@
     <servlet>
         <servlet-name>Login</servlet-name>
         <servlet-class>com.servlets.Login</servlet-class>
-        
     </servlet>
     <servlet>
         <servlet-name>Signup</servlet-name>
@@ -64,6 +63,10 @@
     <servlet>
         <servlet-name>AddBookToCat</servlet-name>
         <servlet-class>com.servlets.admin.AddBookToCat</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteCategory</servlet-name>
+        <servlet-class>com.servlets.admin.DeleteCategory</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AddCategory</servlet-name>
@@ -125,12 +128,15 @@
         <servlet-name>AddBookToCat</servlet-name>
         <url-pattern>/AddBookToCat</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteCategory</servlet-name>
+        <url-pattern>/DeleteCategory</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
-   
     <login-config>
         <auth-method>FORM</auth-method>
         <realm-name>adminSecure</realm-name>

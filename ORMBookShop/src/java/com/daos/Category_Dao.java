@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.daos; import org.hibernate.Session;
+package com.daos;
+
+import org.hibernate.Session;
 
 import com.beans.Category;
 import com.utilts.DbConnctor;
@@ -12,101 +14,73 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import org.hibernate.Query;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
 
 /**
  *
  * @author Administrator
  */
 public class Category_Dao {
-    private static final String SQL_READ = "SELECT * FROM CATEGORY";
-    private static final String SQL_INSERT = "INSERT INTO CATEGORY(CAT_ID,CAT_NAME)"
-            + "VALUES(CATEGORY_SEQ_TMP.NEXTVAL,?)";
-    private static final String SQL_UPDATE = "UPDATE CATEGORY SET CAT_NAME=? WHERE CAT_ID=?";
-    private static final String SQL_DELETE = "DELETE FROM CATEGORY WHERE CAT_ID=?";
 
-    Session session = null;
-    PreparedStatement statement = null;
-    ResultSet resultSet = null;
+   
+    public static Session session;
+    public static Transaction transcation;
 
-    public Category_Dao() {
+    //  private static final String HQL_ADD = "";
+    private static final String HQL_UPDATE = "update Category set catName=:name where catId=:id";
+    private static final String HQL_DELETE = "delete Category where catId=:catid";
+    private static final String HQL_READ_BYNAME = "from Category where catName=:catname";
+    private static final String HQL_READ_ALL = "from Category";
 
+    public void addCategory(Category categoryObj) throws SQLException {
+        session = DbConnctor.opensession();
+        transcation = session.beginTransaction();
+
+        session.persist(categoryObj);
+        session.getTransaction().commit();
+        session.close();
     }
 
-    public boolean add(Category categoryObj) throws SQLException {
-        try {
+    public void updateCategory(int cID, String cName) throws SQLException {
+        session = DbConnctor.opensession();
+        session.beginTransaction();
+        Query query = session.createQuery(HQL_UPDATE);
+        Category cat = null;
 
-            session = DbConnctor.opensession();
-//            statement = session.prepareStatement(SQL_INSERT);
-           //statement.setInt(1, categoryObj .getCatId());
-            statement.setString(1, categoryObj.getCatName());
-//            session.commit();
-            if (statement.executeUpdate() > 0) {
-                return true;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            DbConnctor.closesession();
-        }
-        return false;
+        query.setParameter("name", cName);
+        query.setParameter("id", cID);
+
+        int result = query.executeUpdate();
+        System.out.println(result + " records updated");
+
+        session.getTransaction().commit();
     }
 
-    public boolean update(Category categoryObj) throws SQLException {
+    public void deleteCategory(int catID) throws SQLException {
+        session = DbConnctor.opensession();
+        session.beginTransaction();
+        Query query = session.createQuery(HQL_DELETE);
 
-        try {
-            session = DbConnctor.opensession();
-//            statement = session.prepareStatement(SQL_UPDATE);
-            statement.setString(1, categoryObj.getCatName());
-            statement.setInt(2, categoryObj.getCatId());
-            if (statement.executeUpdate() > 0) {
-                return true;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            DbConnctor.closesession();
-        }
-        return false;
+        query.setParameter("catid", catID);
+        int result = query.executeUpdate();
+        System.out.println(result + " records deleted");
+
+        session.getTransaction().commit();
     }
 
-    public boolean delete(int authorID) throws SQLException {
+    public List<Category> readCategory() throws SQLException {
+        
+        session = DbConnctor.opensession();
+        session.beginTransaction();
+        Query query = session.createQuery(HQL_READ_ALL);
+        List results = query.list();
 
-        try {
-            session = DbConnctor.opensession();
-//            statement = session.prepareStatement(SQL_DELETE);
-            statement.setInt(1, authorID);
-            if (statement.executeUpdate() > 0) {
-                return true;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            DbConnctor.closesession();
-        }
-        return false;
+        session.getTransaction().commit();
+        return results;
     }
-
-    public List<Category> readAll() throws SQLException {
-        ArrayList<Category> catgList = new ArrayList();
-        try {
-            session = DbConnctor.opensession();
-            Category category = null;
-//            statement = session.prepareStatement(SQL_READ);
-            resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                category = new Category();
-                category.setCatId(resultSet.getInt(1));
-                category.setCatName(resultSet.getString(2));
-                catgList.add(category);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            DbConnctor.closesession();
-        }
-        return catgList;
-    }
-
-
 }
