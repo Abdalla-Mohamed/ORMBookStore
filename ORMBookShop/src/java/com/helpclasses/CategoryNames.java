@@ -31,7 +31,7 @@ public class CategoryNames {
         Category_Dao categoryDao = new Category_Dao();
         
         try {
-            list =categoryDao.readAll();
+            list =categoryDao.readCategory();
         } catch (SQLException ex) {
             Logger.getLogger(CategoryNames.class.getName()).log(Level.SEVERE, null, ex);
         }

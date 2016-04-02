@@ -138,6 +138,8 @@
                                             <td><c:out value="${row.getAuthName()}" /></td>
                                             <td><c:out value="${row.getAuthAbout()}" /></td>
                                             <td><c:out value="not support" /></td>
+                                            
+                                            
                                             <td><a herf="#" ><i class ="fa fa-edit"/></a></td>
                                             <td><a  herf="#" /><i  class ="fa fa-times"/></td>
 

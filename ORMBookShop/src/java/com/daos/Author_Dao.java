@@ -14,6 +14,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
 
 /**
  *
@@ -21,7 +25,7 @@ import java.util.List;
  */
 public class Author_Dao {
 
-    private static final String SQL_READ = "SELECT * FROM AUTHOR";
+    private static final String HQL_READ = " FROM Author";
     private static final String SQL_INSERT = "INSERT INTO AUTHOR(AUTH_ID,AUTH_NAME,AUTH_ABOUT,AUTH_IMG)"
             + "VALUES(AUTHOR_SEQ_TMP.NEXTVAL,?,?,?)";
     private static final String SQL_UPDATE = "UPDATE AUTHOR SET AUTH_NAME=? WHERE AUTH_ID=?";
@@ -35,23 +39,23 @@ public class Author_Dao {
 
     }
 
-    public boolean add(Author authorObj) throws SQLException {
+    public boolean add(Author authorObj)  {
         try {
-
-            session = DbConnctor.opensession();
-//            statement = session.prepareStatement(SQL_INSERT);
-            statement.setString(1, authorObj.getAuthName());
-            statement.setString(2, authorObj.getAuthAbout());
-            statement.setString(3, authorObj.getAuthImg());
-            if (statement.executeUpdate() > 0) {
-                return true;
+            try {
+                session = DbConnctor.opensession();
+            } catch (SQLException ex) {
+                Logger.getLogger(Author_Dao.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (SQLException e) {
+            session.beginTransaction();
+            session.saveOrUpdate(authorObj);
+            session.getTransaction().commit();
+            return true;
+            
+        } catch (HibernateException e) {
             e.printStackTrace();
-        } finally {
-            DbConnctor.closesession();
+            return false;
         }
-        return false;
+    
     }
 
     public boolean update(Author authorObj) throws SQLException {
@@ -88,28 +92,18 @@ public class Author_Dao {
         }
         return false;
     }
-
+    
     public List<Author> readAll() throws SQLException {
-        ArrayList<Author> authorList = new ArrayList();
-        try {
-            session = DbConnctor.opensession();
-            Author author = null;
-//            statement = session.prepareStatement(SQL_READ);
-            resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                author = new Author();
-                author.setAuthId(resultSet.getInt(1));
-                author.setAuthName(resultSet.getString(2));
-                author.setAuthAbout(resultSet.getString(3));
-                author.setAuthImg(resultSet.getString(4));
-                authorList.add(author);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            DbConnctor.closesession();
-        }
+       
+ List<Author> authorList = null;
+        session = DbConnctor.opensession();
+       session.beginTransaction();
+        Query query = session.createQuery(HQL_READ);
+        authorList = query.list();
+       session.getTransaction().commit();
         return authorList;
+        
     }
-
 }
+
+

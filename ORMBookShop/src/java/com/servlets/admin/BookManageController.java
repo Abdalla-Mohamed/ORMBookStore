@@ -19,14 +19,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.tomcat.util.http.fileupload.FileItem;
-import org.apache.tomcat.util.http.fileupload.FileUploadException;
-import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
-//import org.apache.commons.fileupload.FileItem;
-//import org.apache.commons.fileupload.FileUploadException;
-//import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-//import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 /**
  *
@@ -137,7 +134,9 @@ public class BookManageController extends HttpServlet {
 
             File scndHeaderFile = new File(bookImagesFolder, scndHeader.getName());
             scndHeader.write(scndHeaderFile);
-            newBook.setImages(imgFront.getName(), imgBack.getName(), frstHeader.getName(), scndHeader.getName());
+            
+            String prefix = book.getBIsbn() + "/";
+            newBook.setImages(prefix+imgFront.getName(), prefix+imgBack.getName(), prefix+frstHeader.getName(), prefix+scndHeader.getName());
             book_Dao.updateImages(newBook);
 
             isInserted = true;
