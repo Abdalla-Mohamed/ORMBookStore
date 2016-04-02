@@ -76,7 +76,7 @@
                 </section>
                 <section class="span8">
                   <ul class="top-nav2">
-                    <li><a href="checkout.jsp">My Account</a></li>
+                    <li><a href="profile.jsp">My Account</a></li>
                     <li><a href="cart.jsp">My Cart</a></li>
                     <li><a href="checkout.jsp">Checkout</a></li>
                     <li><a href="order-recieved.jsp">Track Your Order</a></li>
