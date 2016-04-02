@@ -53,15 +53,16 @@ public class CartController {
             theCart = cartDao.readAll(customerId);
 
             if (theCart != null && !theCart.isEmpty()) {
-                            Iterator<Cart> iteratorCart = theCart.iterator();
-
-                List<Book> customerCartBooks = new Book_Dao().customerCartBooks(customerId);
-                for (Iterator<Book> iterator = customerCartBooks.iterator(); iterator.hasNext();) {
-                    Cart cartN = iteratorCart.next();
-                    Book bookN = iterator.next();
-                    cartN.setBook(bookN);
-                    cartN.setCustomer(new Customer(customerId));
-                }
+//                
+//                            Iterator<Cart> iteratorCart = theCart.iterator();
+//                List<Book> customerCartBooks = new Book_Dao().customerCartBooks(customerId);
+//                
+//                for (Iterator<Book> iterator = customerCartBooks.iterator(); iterator.hasNext();) {
+//                    Cart cartN = iteratorCart.next();
+//                    Book bookN = iterator.next();
+//                    cartN.setBook(bookN);
+//                    cartN.setCustomer(new Customer(customerId));
+//                }
 
             }else{
                 theCart = new ArrayList<>();
