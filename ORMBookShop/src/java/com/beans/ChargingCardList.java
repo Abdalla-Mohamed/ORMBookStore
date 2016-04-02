@@ -52,6 +52,12 @@ public class ChargingCardList {
             
             cardLists = card_Dao.getAllChargingCardByAmount();
             
+            for (ChargingCardList cardList : cardLists) {
+//                ChargingCardList l = new ChargingCardList(cardList.getCardAmount(), cardList.getCountAmount());
+//                cardLists.add(l);
+                System.out.println(cardList.getCardAmount()+" dd "+cardList.getCountAmount());
+            }
+            return cardLists;
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
