@@ -7,12 +7,12 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:useBean id="category" scope="page" class="com.helpclasses.CategoryNames"/>
-<jsp:useBean id="books" scope="session" class="com.helpclasses.BookLists"/>
+<%--<jsp:useBean id="books" scope="session" class="com.helpclasses.BookLists"/>--%>
 
 <!DOCTYPE HTML>
 <html>
-  
-<%@include file='head.jsp'%>
+
+    <%@include file='head.jsp'%>
 
     <body class="sticky-header left-side-collapsed"  onload="initMap()">
         <section>
@@ -23,7 +23,7 @@
             <!-- main content start-->
             <div class="main-content main-content3">
                 <!-- header-starts -->
-              <%@include file='header.jsp'%>
+                <%@include file='header.jsp'%>
                 <!-- //header-ends -->
                 <div id="page-wrapper">
                     <div class="graphs">
@@ -67,15 +67,15 @@
                         <div class="col-md-5">
 
 
-                            <form class="form-horizontal col-sm-12 switch-right-grid" style="padding: 15px;padding-left:  10">
+                            <form action="../../DeleteCategory" method="post" class="form-horizontal col-sm-12 switch-right-grid" style="padding: 15px;padding-left:  10">
                                 <div class="box-body col-sm-12 " >
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label" for="selector1">Categories</label>
                                         <div class="col-sm-9">
-                                            <select class="form-control1"  id="deleteCatName" name="catName">
+                                            <select class="form-control1"  id="deleteCatName" name="deleteCatById">
                                                 <option value="0">select category to remove:</option>
                                                 <c:forEach  items="${category.categories}" var="row">
-                                                    <option><c:out value="${row.getCatName()}"/></option>
+                                                    <option value="<c:out value="${row.getCatId()}"/>"><c:out value="${row.getCatName()}"/></option>
                                                 </c:forEach>
 
                                             </select>
@@ -99,15 +99,15 @@
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label" for="selector1">categories</label>
                                         <div class="col-sm-9">
-                                           
-                                               
-                                                <select class="form-control1"  id="deleteCatName" name="catId">
+
+
+                                            <select class="form-control1"  id="deleteCatName" name="catId">
                                                 <option value="0">select category :</option>
-                                                 <c:forEach  items="${category.categories}" var="row">
-                                                     <option value="<c:out value="${row.getCatId()}"/>"><c:out value="${row.getCatName()}"/></option>
+                                                <c:forEach  items="${category.categories}" var="row">
+                                                    <option value="<c:out value="${row.getCatId()}"/>"><c:out value="${row.getCatName()}"/></option>
                                                 </c:forEach>
                                             </select>
-                                            
+
                                         </div>
                                     </div>
                                 </div >
@@ -118,16 +118,18 @@
                                         <label class="col-sm-3 control-label">Books</label>
                                         <div class="col-sm-9">
                                             <select class="form-control1" multiple="" name="bookId">
-                                                 <c:set var="id" value="${sessionScope.catN2}"/>
-                                                 <c:forEach  items="${books.booksWithNoCategory}" var="row">
-                                                     <option value="<c:out value="${row.getBIsbn()}"/>"><c:out value="${row.getBName()}"/></option>
+                                                <c:set var="id" value="${sessionScope.catN2}"/>
+                                                <c:forEach  items="${books.booksWithNoCategory}" var="row">
+                                                    <option value="
+                                                            <c:out value="${row.getBIsbn()}"/>"><c:out value="${row.getBName()}"/>
+                                                    </option>
                                                 </c:forEach>
                                             </select>
                                         </div>
                                     </div>
 
                                 </div>
-                                
+
 
                                 <div class="col-sm-11 " >
                                     <button type="submit" class="btn btn-info pull-right">Add Book</button>
@@ -136,7 +138,7 @@
                             </form>
 
                         </div>
-                                                 
+
                         <div class="col-md-12">
                             <br>
 
@@ -145,15 +147,15 @@
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label" for="selector1">categories</label>
                                         <div class="col-sm-9">
-                                           
-                                               
+
+
                                             <select class="form-control1"  id="deleteCatName" name="catNo3" onchange="this.form.submit()">
                                                 <option value="0">select category :</option>
-                                                 <c:forEach  items="${category.categories}" var="row">
-                                                     <option value="<c:out value="${row.getCatId()}"/>"><c:out value="${row.getCatName()}"/></option>
+                                                <c:forEach  items="${category.categories}" var="row">
+                                                    <option value="<c:out value="${row.getCatId()}"/>"><c:out value="${row.getCatName()}"/></option>
                                                 </c:forEach>
                                             </select>
-                                            
+
                                         </div>
                                     </div>
                                 </div >
@@ -164,16 +166,18 @@
                                         <label class="col-sm-3 control-label">Books</label>
                                         <div class="col-sm-9">
                                             <select class="form-control1" multiple="" name="bookId">
-                                                 <c:set var="id" value="${sessionScope.catN3}"/>
-                                                 <c:forEach  items="${books.getBooksByCategory(id)}" var="row">
-                                                     <option value="<c:out value="${row.getBIsbn()}"/>"><c:out value="${row.getBName()}"/></option>
+                                                <c:set var="id" value="${sessionScope.catN3}"/>
+                                                <c:forEach  items="${books.getBooksByCategory(id)}" var="row">
+                                                    <option value="
+                                                            <c:out value="${row.getBIsbn()}"/>"><c:out value="${row.getBName()}"/>
+                                                    </option>
                                                 </c:forEach>
                                             </select>
                                         </div>
                                     </div>
 
                                 </div>
-                                
+
 
                                 <div class="col-sm-11 " >
                                     <button type="submit" class="btn btn-info pull-right" id="delB" >delete book</button>
