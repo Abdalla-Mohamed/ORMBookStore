@@ -125,7 +125,7 @@
                                                             <h4>Count* :</h4>
                                                         </div>
                                                         <div class="sign-up2">
-                                                            <input name="count"   type="text" placeholder=" " required=" " value="${updateBook.BCount}" />
+                                                            <input name="count" type="text" placeholder=" " oninput="validity.valid||(value='');" required=" " value="${updateBook.BCount}" />
                                                         </div>
                                                         <div class="clearfix"> </div>
                                                     </div>
@@ -134,7 +134,7 @@
                                                             <h4>Price* :</h4>
                                                         </div>
                                                         <div class="sign-up2">
-                                                            <input name="price" type="text" placeholder=" " required=" " value="${updateBook.BPrice}"/>
+                                                            <input name="price" type="text" placeholder=" " required=" " oninput="validity.valid||(value='');" value="${updateBook.BPrice}"/>
                                                         </div>
                                                         <div class="clearfix"> </div>
                                                     </div>
@@ -166,7 +166,7 @@
                                                             <h4>Rate* :</h4>
                                                         </div>
                                                         <div class="sign-up2">
-                                                            <input name="rate"  type="text" placeholder=" " required=" " value="${updateBook.BRating}" />
+                                                            <input name="rate"  type="text" placeholder=" " required=" " oninput="validity.valid||(value='');" value="${updateBook.BRating}" />
                                                         </div>
                                                         <div class="clearfix"> </div>
                                                     </div>
