@@ -55,11 +55,7 @@ else {
 
             if (addauther) {
 
-                System.out.println("Done");
-//             
-//                RequestDispatcher rd = request.getRequestDispatcher("adminPanel/secured/authers.jsp");
-//                rd.forward(request, response);
-//             
+                System.out.println("Done");          
 
                 response.sendRedirect("adminPanel/secured/authers.jsp");
 

@@ -27,6 +27,9 @@ public class GetAuthers {
         Author_Dao   obj=new Author_Dao();
         try {
             list =obj.readAll();
+            for (Author  a :list ){
+                System.out.println(" REs "+a.getAuthName());
+            }
         } catch (Exception ex) {
         
         ex.printStackTrace();

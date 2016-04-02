@@ -8,6 +8,18 @@
         <description>ServletContextListener, HttpSessionListener</description>
         <listener-class>com.listeners.OnLineListener</listener-class>
     </listener>
+     <security-constraint>
+        <display-name>adminPrivacy</display-name>
+        <web-resource-collection>
+            <web-resource-name>admin pages</web-resource-name>
+            <description/>
+            <url-pattern>/adminPanel/secured/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description/>
+            <role-name>adminShop</role-name>
+        </auth-constraint>
+    </security-constraint>
     <servlet>
         <servlet-name>AddCategory</servlet-name>
         <servlet-class>com.servlets.AddCategory</servlet-class>
@@ -15,6 +27,7 @@
     <servlet>
         <servlet-name>Login</servlet-name>
         <servlet-class>com.servlets.Login</servlet-class>
+        
     </servlet>
     <servlet>
         <servlet-name>Signup</servlet-name>
@@ -117,18 +130,7 @@
             30
         </session-timeout>
     </session-config>
-    <security-constraint>
-        <display-name>adminPrivacy</display-name>
-        <web-resource-collection>
-            <web-resource-name>admin pages</web-resource-name>
-            <description/>
-            <url-pattern>/adminPanel/secured/*</url-pattern>
-        </web-resource-collection>
-        <auth-constraint>
-            <description/>
-            <role-name>adminShop</role-name>
-        </auth-constraint>
-    </security-constraint>
+   
     <login-config>
         <auth-method>FORM</auth-method>
         <realm-name>adminSecure</realm-name>
