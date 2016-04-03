@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page session="false" %>
+<%@page session="true" %>
 <%@page import="com.helpclasses.BookLists"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:useBean id="bookLists" scope="page" class="com.helpclasses.BookLists" />

@@ -5,6 +5,9 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="com.beans.Customer"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--<jsp:useBean id="customer" scope="page" type="com.beans.Customer"/>--%> 
 <!DOCTYPE html>
 
 
@@ -49,11 +52,24 @@
                 </section>
                 <section class="span6 e-commerce-list">
                   <ul>
+                      <c:if test="${sessionScope.customer==null }">
                     <li>Welcome! <a href="checkout.jsp">Login</a> or <a href="checkout.jsp">Create an account</a></li>
+                    </c:if>
+                    
+                    <c:if test="${sessionScope.customer!=null }">
+                        
+                     <li>Welcome <c:out value="${customer.CName}"/> <a href="../Logout">Logout</a> </li>
+                    </c:if>
                     <li><p>Welcome you are user number ${applicationScope.x+1}</p>
                         <c:set var="x" scope="application" value="${x+1}"/></li>
                   </ul>
+                  <c:if test="${sessionScope.customer!=null }">
                   <div class="c-btn"> <a href="cart.jsp" class="cart-btn">Cart</a>
+                  </c:if>
+                  <c:if test="${sessionScope.customer==null }">
+                  <div class="c-btn"> <a href="checkout.jsp" class="cart-btn">Cart</a>
+                  </c:if>
+                      
                     <div class="btn-group">
                       <button data-toggle="dropdown" class="btn btn-mini dropdown-toggle">0 item(s) - $0.00<span class="caret"></span></button>
                       <ul class="dropdown-menu">
@@ -76,8 +92,20 @@
                 </section>
                 <section class="span8">
                   <ul class="top-nav2">
+                      
+                    <c:if test="${sessionScope.customer!=null }">   
                     <li><a href="profile.jsp">My Account</a></li>
+                    </c:if>
+                    <c:if test="${sessionScope.customer==null }">   
+                    <li><a href="checkout.jsp">My Account</a></li>
+                    </c:if>
+                    <c:if test="${sessionScope.customer!=null }">
                     <li><a href="cart.jsp">My Cart</a></li>
+                    </c:if>
+                    <c:if test="${sessionScope.customer==null }">
+                    <li><a href="checkout.jsp">My Cart</a></li>
+                    </c:if>
+                    
                     <li><a href="checkout.jsp">Checkout</a></li>
                     <li><a href="order-recieved.jsp">Track Your Order</a></li>
                   </ul>
