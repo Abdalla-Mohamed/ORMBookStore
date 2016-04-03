@@ -94,6 +94,7 @@ public class BookEditController extends HttpServlet {
         double price = Double.parseDouble(request.getParameter("price"));
         int count = Integer.parseInt(request.getParameter("count"));
         String desc = request.getParameter("description");
+        int rate = Integer.parseInt(request.getParameter("rate"));
 
         HttpSession session = request.getSession(true);
         session.setAttribute("book", book);
@@ -103,6 +104,7 @@ public class BookEditController extends HttpServlet {
         book.setBCount(count);
         book.setBDescription(desc);
         book.setBPrice(price);
+        book.setBRating(rate);
 
         response.setContentType("text/html");
         try {
