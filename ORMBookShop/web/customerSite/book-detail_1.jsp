@@ -97,7 +97,7 @@
                 	<div class="span6 b-img-holder">
                             
                         <span class='zoom' id='ex1'>
-                            <img src="../productImage?imageName=${bookdetials.BFrontImg}"  height="219" width="300" id='jack' alt=''/></span>
+                            <img src="../productImage?imageName=${bookdetials.wrapPathBFrontImg()}"  height="219" width="300" id='jack' alt=''/></span>
                     </div>
                 <!-- End Book Image Section -->
                 
@@ -114,7 +114,7 @@
                         <div class="comm-nav">
                         	<strong class="title2">Quantity</strong>
                             <ul>
-                                 <form action="/OnlineBookShop/AddToCart" method="POST" >
+                                 <form action="/ORMBookShop/AddToCart" method="POST" >
                                      <li><input name="count" type="number" max='${bookdetials.BCount}' /></li><br/><br/><br/>
                                  
                                  

@@ -107,6 +107,11 @@ public class Book_Dao {
             session.beginTransaction();
             Query query = session.createQuery(HQL_READ_BOOKS);
             bookList = query.list();
+                       System.out.println("in dao");
+
+            for (Book bookList1 : bookList) {
+                System.out.println(bookList1.getBFrontImg());
+            }
            
             session.getTransaction().commit();
 

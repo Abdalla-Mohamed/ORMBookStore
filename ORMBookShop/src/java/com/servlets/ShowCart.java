@@ -60,7 +60,7 @@ public class ShowCart extends HttpServlet {
         
         List<Cart> customerCart = new CartController().getCustomerCart(cId);
 //        request.getSession().c
-        response.sendRedirect("/OnlineBookShop/customerSite/grid-view.jsp");
+        response.sendRedirect("/ORMBookShop/customerSite/grid-view.jsp");
     
     }
 

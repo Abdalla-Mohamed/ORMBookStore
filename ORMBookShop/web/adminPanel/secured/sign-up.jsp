@@ -169,7 +169,7 @@
             <div id="page-wrapper" class="sign-in-wrapper">
                 <div class="graphs">
                     <div class="sign-up">
-                        <form action="/OnlineBookShop/BookManageSrvlt" method="post" name="myForm" enctype="multipart/form-data"  >
+                        <form action="/ORMBookShop/BookManageSrvlt" method="post" name="myForm" enctype="multipart/form-data"  >
                             <h3>New book form</h3>
                             <p class="creating">Having hands on experience in creating innovative designs,I do offer design 
                                 solutions which harness.</p>

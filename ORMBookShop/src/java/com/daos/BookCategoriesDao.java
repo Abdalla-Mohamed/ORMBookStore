@@ -49,9 +49,7 @@ public class BookCategoriesDao {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            DbConnctor.closesession();
-        }
+        } 
         return added;
 
     }
@@ -151,7 +149,7 @@ public class BookCategoriesDao {
                 book.setBRating(result.getInt(7));
 
                 // images folder path
-                String imagesFolder = Book.uplodedImgFolderDestntion + book.getBIsbn()+"\\";
+                String imagesFolder = Book.uplodedImgFolderDestntion ;
 
                 book.setBFrontImg(imagesFolder + result.getString(8));
                 book.setBBackImg(imagesFolder + result.getString(9));

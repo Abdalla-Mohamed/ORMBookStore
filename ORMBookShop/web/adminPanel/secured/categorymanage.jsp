@@ -31,7 +31,7 @@
 
                         <div class="col-md-5">
 
-                            <form class="form-horizontal col-sm-12 switch-right-grid" style="padding: 15px;padding-left:  0" action="/OnlineBookShop/CategoryControllrer" method="post">
+                            <form class="form-horizontal col-sm-12 switch-right-grid" style="padding: 15px;padding-left:  0" action="/ORMBookShop/CategoryControllrer" method="post">
                                 <div class="box-body col-sm-12 " >
                                     <div class="form-group col-sm-12 " style="padding: 0px" >
 

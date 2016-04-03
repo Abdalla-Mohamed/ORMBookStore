@@ -43,7 +43,7 @@ public class UpdateCustomerData extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(UpdateCustomerData.class.getName()).log(Level.SEVERE, null, ex);
         }
-         HttpSession session = request.getSession(true);
+         HttpSession session = request.getSession(false);
          session.setAttribute("customer",customer); 
          response.sendRedirect("customerSite/profile.jsp");
     }

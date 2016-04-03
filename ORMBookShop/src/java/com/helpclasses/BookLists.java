@@ -32,6 +32,10 @@ public class BookLists {
 
         try {
             books = bookDao.readAll();
+            System.out.println("in lists");
+             for (Book bookList1 : books) {
+                System.out.println(bookList1.getBFrontImg());
+            }
             System.out.println("");
         } catch (SQLException ex) {
             Logger.getLogger(BookLists.class.getName()).log(Level.SEVERE, null, ex);

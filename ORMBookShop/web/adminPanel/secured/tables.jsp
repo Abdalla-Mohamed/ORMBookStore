@@ -68,7 +68,7 @@
                                                 <td>${book.getBRating()}</td>
                                                 <!--<td><a href="#"><i class="fa fa-edit"/></a></td>-->
                                                 <td>
-                                                    <form action="/OnlineBookShop/UpdateBookDilog" method="post">
+                                                    <form action="/ORMBookShop/UpdateBookDilog" method="post">
                                                         <input type="hidden" name="ispnRow" value="${book.getBIsbn()}" />
                                                         <button type="submit" class="btn btn-primary fa fa-edit" /> 
                                                     </form>
@@ -79,7 +79,7 @@
                                                          
                                                       </a>
                                                     -->
-                                                    <form  action="/OnlineBookShop/BookEditController" method="get" >
+                                                    <form  action="/ORMBookShop/BookEditController" method="get" >
                                                         <input type="hidden" name="ispnRow" value="${book.getBIsbn()}" />
                                                         <button type="submit" class="btn btn-primary fa fa-times" /> 
                                                     </form>
@@ -97,7 +97,7 @@
                                     <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
                                             <div class="sign-up">
-                                                <form action="/OnlineBookShop/BookEditController" method="post">
+                                                <form action="/ORMBookShop/BookEditController" method="post">
                                                     <h3>Update book form</h3>
                                                     <p class="creating">Having hands on experience in creating innovative designs,I do offer design 
                                                         solutions which harness.</p>

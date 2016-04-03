@@ -34,7 +34,7 @@ public class BookManageController extends HttpServlet {
 
     private Book book;
     private Book_Dao book_Dao;
-    final String jspBookMange = "/OnlineBookShop/adminPanel/secured/tables.jsp";
+    final String jspBookMange = "/ORMBookShop/adminPanel/secured/tables.jsp";
 
     public BookManageController() {
         super();
@@ -135,8 +135,7 @@ public class BookManageController extends HttpServlet {
             File scndHeaderFile = new File(bookImagesFolder, scndHeader.getName());
             scndHeader.write(scndHeaderFile);
             
-            String prefix = book.getBIsbn() + "/";
-            newBook.setImages(prefix+imgFront.getName(), prefix+imgBack.getName(), prefix+frstHeader.getName(), prefix+scndHeader.getName());
+            newBook.setImages(imgFront.getName(), imgBack.getName(), frstHeader.getName(), scndHeader.getName());
             book_Dao.updateImages(newBook);
 
             isInserted = true;

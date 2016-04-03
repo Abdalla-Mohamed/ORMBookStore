@@ -70,9 +70,7 @@ public class Author_Dao {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            DbConnctor.closesession();
-        }
+        } 
         return false;
     }
 
@@ -87,9 +85,7 @@ public class Author_Dao {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            DbConnctor.closesession();
-        }
+        } 
         return false;
     }
     

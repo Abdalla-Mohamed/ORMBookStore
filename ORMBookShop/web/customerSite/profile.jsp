@@ -67,14 +67,14 @@
     <h4>your current address is <c:out value="${customer.CAddress}"/></h4>
     <h4>your current job is <c:out value="${customer.CJob}"/></h4>
     <h4>your current phone number is <c:out value="${customer.CMobile}"/></h4>
-    <h4>-------------------------------------------------------------</hr>
+    <h4>-------------------------------------------------------------</h4>
        
     <h3>your favorite categories :</h3>
     <c:set var="id" value="${customer.CId}"/>
 
-    <c:forEach  items="${favoriteCat.getFCategories(id)}" var="row">
-     <h4>  <c:out value="${row.getCatName()}"/>  <hr>
-       </c:forEach>
+    <%--<c:forEach  items="${favoriteCat.getFCategories(id)}" var="row">--%>
+     <!--<h4>  <c:out value="${row.getCatName()}"/>  <hr>-->
+       <%--</c:forEach>--%>
                 </div>
                 
             	<div class="row-2"> </div>
