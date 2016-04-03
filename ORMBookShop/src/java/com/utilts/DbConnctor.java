@@ -38,7 +38,7 @@ public class DbConnctor {
 
             sessionFactory = configure.buildSessionFactory();
 
-            session = sessionFactory.getCurrentSession();
+            session = sessionFactory.openSession();
 
         }
         return session;
