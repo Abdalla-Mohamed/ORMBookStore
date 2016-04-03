@@ -166,6 +166,7 @@
 
     <body class="sign-in-up">
         <section>
+
             <div id="page-wrapper" class="sign-in-wrapper">
                 <div class="graphs">
                     <div class="sign-up">
@@ -189,7 +190,7 @@
                                     <h4>count* :</h4>
                                 </div>
                                 <div class="sign-up2">
-                                    <input name="count" type="number" placeholder=" " required=" " onblur="validateBookCount()"/>
+                                    <input name="count" type="number" placeholder=" " required=" " min="1" oninput="validity.valid||(value='');" onblur="validateBookCount()"/>
                                     <span style="color:red;" id="countError" > </span>
                                 </div>
                                 <div class="clearfix"> </div>
@@ -199,7 +200,7 @@
                                     <h4>price* :</h4>
                                 </div>
                                 <div class="sign-up2">
-                                    <input name="price" type="number" placeholder=" " required=" " onblur="validateBookPrice()"/>
+                                    <input name="price" type="number" placeholder=" " required=" " min="10" oninput="validity.valid||(value='');" onblur="validateBookPrice()"/>
                                     <span style="color:red;" id="priceError" > </span>
 
                                 </div>
@@ -235,7 +236,7 @@
                                     <h4>rate* :</h4>
                                 </div>
                                 <div class="sign-up2">
-                                    <input name="rate"  type="number" placeholder=" " required=" " onblur="validateBookRate()"/>
+                                    <input name="rate"  type="number" placeholder=" " required=" " min="1"  oninput="validity.valid||(value='');"  onblur="validateBookRate()"/>
                                     <span style="color:red;" id="rateError"> </span>
                                 </div>
                                 <div class="clearfix"> </div>

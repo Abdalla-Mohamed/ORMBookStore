@@ -35,7 +35,7 @@ public class Book_Dao {
 //
 //    private static final String SQL_UPDATE_COUNT = "UPDATE BOOK SET B_COUNT=? WHERE B_ISBN=?";
 //    private static final String SQL_SELECT_COUNT = "sELECT B_COUNT FROM BOOK where B_ISBN=?";
-   private Session session = null;
+    private Session session = null;
 
     private static final String HQL_READ_BOOKS = "from Book";
     private static final String HQL_READ_BOOKBYNAME = "from Book where BName=? ";
@@ -46,7 +46,7 @@ public class Book_Dao {
     }
 
     public boolean add(Book bookObj) throws SQLException {
-        boolean isAdded =false;
+        boolean isAdded = false;
         try {
 
             session = DbConnctor.opensession();
@@ -70,17 +70,16 @@ public class Book_Dao {
 
         } catch (SQLException e) {
             e.printStackTrace();
-        } 
-           
-        
+        }
+
         return false;
     }
 
     public boolean updateImages(Book bookObj) throws SQLException {
 
-             Book bookForUpdate = this.readByIsbn(bookObj.getBIsbn());
-        bookForUpdate.setImages(bookObj.getBFrontImg(),bookObj.getBBackImg(),bookObj.getBHdr01Img(),bookObj.getBHdr02Img());
-      return update(bookForUpdate);
+        Book bookForUpdate = this.readByIsbn(bookObj.getBIsbn());
+        bookForUpdate.setImages(bookObj.getBFrontImg(), bookObj.getBBackImg(), bookObj.getBHdr01Img(), bookObj.getBHdr02Img());
+        return update(bookForUpdate);
     }
 
     public boolean delete(int bookID) throws SQLException {
@@ -107,12 +106,7 @@ public class Book_Dao {
             session.beginTransaction();
             Query query = session.createQuery(HQL_READ_BOOKS);
             bookList = query.list();
-                       System.out.println("in dao");
 
-            for (Book bookList1 : bookList) {
-                System.out.println(bookList1.getBFrontImg());
-            }
-           
             session.getTransaction().commit();
 
         } catch (SQLException e) {
@@ -136,8 +130,7 @@ public class Book_Dao {
         } catch (SQLException e) {
             session.getTransaction().rollback();
             e.printStackTrace();
-        
-           
+
         }
         return book;
     }
@@ -152,13 +145,11 @@ public class Book_Dao {
             book = (Book) session.get(Book.class, isbn);
             session.getTransaction().commit();
 
-          
         } catch (SQLException e) {
             session.getTransaction().rollback();
             e.printStackTrace();
-        } 
-           
-        
+        }
+
         return book;
     }
 //<editor-fold defaultstate="collapsed" desc="for delete">
@@ -211,17 +202,15 @@ public class Book_Dao {
         } catch (SQLException ex) {
             session.getTransaction().rollback();
             ex.printStackTrace();
-        } 
+        }
 
-           
-        
         return count;
     }
 
     public boolean updateCount(Book book) throws SQLException {
         Book bookForUpdate = this.readByIsbn(book.getBIsbn());
         bookForUpdate.setBCount(book.getBCount());
-      return update(bookForUpdate);
+        return update(bookForUpdate);
     }
 
 }
