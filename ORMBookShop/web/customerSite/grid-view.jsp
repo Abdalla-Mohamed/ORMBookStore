@@ -111,12 +111,12 @@
                     <div class=" slide col-sm-4"  >
                      <form method="POST"   action="../ShowBookDetails1"  >
                          <input type="hidden"  name="ispnRow" value="${book.getBIsbn()}" />
-                         <button type="submit" style="border: none"><img src="../productImage?imageName=${book.getBFrontImg()}" style="float: left" alt="" class="pro-img "/></button>
+                         <button type="submit" style="border: none"><img src="../productImage?imageName=${book.wrapPathBFrontImg()}" style="float: left" alt="" class="pro-img "/></button>
                      </form>
                     <span class="title"><a >${book.getBName()}</a></span>
                     <span class="rating-bar"><img src="images/rating-star.png" alt="Rating Star"/></span>
                     <div class="cart-price">
-                        <form action="/OnlineBookShop/AddToCart" method="POST">
+                        <form action="/ORMBookShop/AddToCart" method="POST">
                             <button type="submit" class="cart-btn2" style="border: none">Info</button>
                             <span class="price">${book.getBPrice()}</span>
                             <input type="hidden" name="ispnRow" value="${book.getBIsbn()}" />

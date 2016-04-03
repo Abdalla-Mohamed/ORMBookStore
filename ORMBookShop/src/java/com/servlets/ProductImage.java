@@ -44,7 +44,7 @@ public class ProductImage extends HttpServlet {
         int thumbWidth = 350;
         int thumbHeight = 460;
 //        String pathToWeb = "C:/Book_Shop/images/";//getServletContext().getRealPath("/");
-        File f = new File(Book.uplodedImgFolderDestntion + "/" + imageName);
+        File f = new File(Book.uplodedImgFolderDestntion + imageName);
         System.out.println(f.getAbsolutePath());
         Image image = ImageIO.read(f);
 

@@ -73,7 +73,7 @@
 
                                                         <c:forEach items="${cartList}" var="cartItem" varStatus="loobIndex" >
                                                             <tr bgcolor="#FFFFFF" class=" product-detail">
-                                                                <td valign="top"><img width="100%" src="../productImage?imageName=${cartItem.getBook().getBFrontImg()}" /></td>
+                                                                <td valign="top"><img width="100%" src="../productImage?imageName=${cartItem.getBook().wrapPathBFrontImg()}" /></td>
                                                                 <td align="center" valign="center">${cartItem.getBook().getBName()}</td>
                                                                 <td align="center" valign="center"><a href="#">Edit</a></td>
                                                                 <td align="center" valign="center">${cartItem.getBook().getBPrice()}</td>

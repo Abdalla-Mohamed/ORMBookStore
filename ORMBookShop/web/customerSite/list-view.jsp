@@ -110,7 +110,7 @@
                                                         <article class="item-holder">
                                                             <div class="span2">
                                                                  <input type="hidden" name="ispnRow" value="${book.getBIsbn()}" />
-                                                                <a> <img src="../productImage?imageName=${book.getBFrontImg()}"  /> </a>
+                                                                <a> <img src="../productImage?imageName=${book.wrapPathBFrontImg()}"  /> </a>
                                                             </div>
                                                             
                                                             <div class="span10">

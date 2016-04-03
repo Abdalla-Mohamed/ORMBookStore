@@ -59,13 +59,14 @@ public class AddToCart extends HttpServlet {
          HttpSession session = request.getSession(false);
         int isbn = Integer.parseInt((String) request.getParameter("ispnRow"));
         int count = Integer.parseInt((String) request.getParameter("count"));
-        Customer loginCustomer= (Customer)(request.getSession().getAttribute(SharedNames.loginedCustomer));
+        String customer=SharedNames.loginedCustomer;
+        Customer loginCustomer= (Customer)(session.getAttribute(customer));
         Integer cId = loginCustomer.getCId();
         CartId cartId = new CartId(isbn, cId);
-        Cart cart = new Cart(cartId,new Book(isbn),loginCustomer );
+        Cart cart = new Cart(cartId,new Book(isbn),loginCustomer,count );
         new CartController().addItemInCart(cart);
 
-        response.sendRedirect("/OnlineBookShop/customerSite/grid-view.jsp");
+        response.sendRedirect("/ORMBookShop/customerSite/grid-view.jsp");
     
     }
 

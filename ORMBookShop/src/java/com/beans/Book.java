@@ -43,7 +43,7 @@ public class Book  implements java.io.Serializable {
      private Set<Cart> carts = new HashSet<Cart>(0);
      private Set<Author> authors = new HashSet<Author>(0);
      private Set<Category> categories = new HashSet<Category>(0);
-    static public final String uplodedImgFolderDestntion = "C:/Book_Shop/images/";
+    static public final String uplodedImgFolderDestntion = "C:/Book_Shop/images";
 
 
     public Book() {
@@ -188,7 +188,12 @@ public class Book  implements java.io.Serializable {
         return this.BFrontImg;
     }
     
+    public String wrapPathBFrontImg() {
+        return "/"+BIsbn+"/"+this.BFrontImg;
+    }
+    
     public void setBFrontImg(String BFrontImg) {
+        System.out.println(BFrontImg);
         this.BFrontImg = BFrontImg;
     }
 
