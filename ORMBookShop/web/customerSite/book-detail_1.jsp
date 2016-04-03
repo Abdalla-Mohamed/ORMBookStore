@@ -275,12 +275,12 @@ Quisque vulputate justo eu mattis interdum magna erat porta risus tincidunt </p>
         <!-- End Main Content -->
         
         <!-- Start Main Side Bar -->
-        <section class="span3">
+<!--        <section class="span3">
         	<div class="side-holder">
             	<article class="banner-ad"><img src="images/image20.jpg" alt="Banner Ad" /></article>
             </div>
             
-            <!-- Start Shop by Section -->
+             Start Shop by Section 
             <div class="side-holder">
             	<article class="shop-by-list">
                 	<h2>Shop by</h2>
@@ -307,9 +307,9 @@ Quisque vulputate justo eu mattis interdum magna erat porta risus tincidunt </p>
                     </div>
                 </article>
             </div>
-            <!-- End Shop by Section -->
+             End Shop by Section 
             
-            <!-- Start Latest Reviews Section -->
+             Start Latest Reviews Section 
             <div class="side-holder">
             	<article class="l-reviews">
                 	<h2>Latest Reviews</h2>
@@ -343,9 +343,9 @@ Quisque vulputate justo eu mattis interdum magna erat porta risus tincidunt </p>
                     </div>
                 </article>
             </div>
-            <!-- End Latest Reviews Section -->
+             End Latest Reviews Section 
             
-            <!-- Start Price Range Section -->
+             Start Price Range Section 
             <div class="side-holder">
             	<article class="price-range">
                 	<h2>Price Range</h2>
@@ -356,9 +356,9 @@ Quisque vulputate justo eu mattis interdum magna erat porta risus tincidunt </p>
                     </div>
                 </article>
             </div>
-            <!-- End Price Range Section -->
+             End Price Range Section 
             
-            <!-- Start Community Poll Section -->
+             Start Community Poll Section 
             <div class="side-holder">
             	<article class="price-range">
                 	<h2>Community Poll</h2>
@@ -384,9 +384,9 @@ Quisque vulputate justo eu mattis interdum magna erat porta risus tincidunt </p>
                     </div>
                 </article>
             </div>
-            <!-- End Community Poll Section -->
+             End Community Poll Section 
             
-        </section>
+        </section>-->
         <!-- End Main Side Bar -->
     </section>
   </section>
