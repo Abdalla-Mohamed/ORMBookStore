@@ -6,6 +6,7 @@
 package com.servlets.admin;
 
 import com.daos.BookCategoriesDao;
+import com.daos.Book_Dao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -24,7 +25,7 @@ public class AddBookToCat extends HttpServlet {
     
      @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-            BookCategoriesDao bCatDao =new BookCategoriesDao();
+            Book_Dao bDao =new Book_Dao();
             
            response.setContentType("text/html");
        
@@ -36,7 +37,7 @@ public class AddBookToCat extends HttpServlet {
            if(catId!=0&&bookId!=0){
                
                 try {
-                    bCatDao.add(catId, bookId);
+                    bDao.addCategory(bookId, catId);
                 } catch (SQLException ex) {
                     Logger.getLogger(AddBookToCat.class.getName()).log(Level.SEVERE, null, ex);
                 }

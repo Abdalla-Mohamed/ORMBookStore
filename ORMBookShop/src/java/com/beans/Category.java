@@ -70,7 +70,7 @@ public class Category  implements java.io.Serializable {
         this.catName = catName;
     }
 
-@ManyToMany(fetch=FetchType.LAZY)
+@ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(name="BOOK_CATEGORY", schema="BOOKSTORE", joinColumns = { 
         @JoinColumn(name="CATG_ID", nullable=false, updatable=false) }, inverseJoinColumns = { 
         @JoinColumn(name="BOOK_ID", nullable=false, updatable=false) })
