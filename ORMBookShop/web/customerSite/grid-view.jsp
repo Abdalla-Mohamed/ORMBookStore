@@ -117,7 +117,12 @@
                     <span class="rating-bar"><img src="images/rating-star.png" alt="Rating Star"/></span>
                     <div class="cart-price">
                         <form action="/ORMBookShop/AddToCart" method="POST">
+                            <c:if test="${sessionScope.customer!=null }">                            
                             <button type="submit" class="cart-btn2" style="border: none">Info</button>
+                            </c:if>
+                            <c:if test="${sessionScope.customer==null }">
+                                <button type="button" class=" more-btn" onclick="window.location='checkout.jsp'">Login</button>
+                            </c:if>
                             <span class="price">${book.getBPrice()}</span>
                             <input type="hidden" name="ispnRow" value="${book.getBIsbn()}" />
                             <input name="count" type="hidden" value="1" />
@@ -160,12 +165,12 @@
         <!-- End Main Content -->
         
         <!-- Start Main Side Bar -->
-        <section class="span3">
+<!--        <section class="span3">
         	<div class="side-holder">
             	<article class="banner-ad"><img src="images/image20.jpg" alt="Banner Ad" /></article>
             </div>
             
-            <!-- Start Shop by Section -->
+             Start Shop by Section 
             <div class="side-holder">
             	<article class="shop-by-list">
                 	<h2>Shop by</h2>
@@ -192,9 +197,9 @@
                     </div>
                 </article>
             </div> 
-            <!-- End Shop by Section -->
+             End Shop by Section 
             
-            <!-- Start Latest Reviews Section -->
+             Start Latest Reviews Section 
             <div class="side-holder">
             	<article class="l-reviews">
                 	<h2>Latest Reviews</h2>
@@ -228,9 +233,9 @@
                     </div>
                 </article>
             </div>
-            <!-- End Latest Reviews Section -->
+             End Latest Reviews Section 
             
-            <!-- Start Price Range Section -->
+             Start Price Range Section 
             <div class="side-holder">
             	<article class="price-range">
                 	<h2>Price Range</h2>
@@ -241,9 +246,9 @@
                     </div>
                 </article>
             </div>
-            <!-- End Price Range Section -->
+             End Price Range Section 
             
-            <!-- Start Community Poll Section -->
+             Start Community Poll Section 
             <div class="side-holder">
             	<article class="price-range">
                 	<h2>Community Poll</h2>
@@ -269,9 +274,9 @@
                     </div>
                 </article>
             </div>
-            <!-- End Community Poll Section -->
+             End Community Poll Section 
             
-        </section>
+        </section>-->
         <!-- End Main Side Bar -->
     </section>
   </section>
