@@ -8,6 +8,7 @@ package com.daos;
 import org.hibernate.Session;
 
 import com.beans.Book;
+import com.beans.Category;
 import java.sql.*;
 import com.utilts.DbConnctor;
 import java.util.ArrayList;
@@ -40,6 +41,7 @@ public class Book_Dao {
     private static final String HQL_READ_BOOKS = "from Book";
     private static final String HQL_READ_BOOKBYNAME = "from Book where BName=? ";
     private static final String HQL_SELECT_COUNT = "SELECT b.BCount FROM Book b where b.BIsbn =?";
+    private static final String HQL_SELECT_BOOKS_WITH_NO_CATEGORY = " FROM Book b where b.categories is empty";
 
     public Book_Dao() {
 
@@ -119,7 +121,7 @@ public class Book_Dao {
 
     public Book readByName(String bookName) throws SQLException {
         Book book = null;
-
+               
         try {
 
             session = DbConnctor.opensession();
@@ -213,4 +215,52 @@ public class Book_Dao {
         return update(bookForUpdate);
     }
 
+    public boolean addCategory (int bookId,int categoryID) throws SQLException {
+        
+        Book book= readByIsbn(bookId);
+        Category_Dao cDao =new Category_Dao();
+        Category category= cDao.readById(bookId);
+        book.getCategories().add(category);
+        return update(book);
+    }
+    
+     public List<Book> getBooksWithNoCategory() throws SQLException {
+        List<Book> bookList = new ArrayList();
+
+        try {
+            session = DbConnctor.opensession();
+            session.beginTransaction();
+            Query query = session.createQuery(HQL_SELECT_BOOKS_WITH_NO_CATEGORY);
+            bookList = query.list();
+
+            session.getTransaction().commit();
+
+        } catch (SQLException e) {
+            session.getTransaction().rollback();
+            e.printStackTrace();
+        }
+
+        return bookList;
+    }
+     
+     public List<Book> getBooksByCategory() throws SQLException {
+        List<Book> bookList = new ArrayList();
+
+        try {
+            session = DbConnctor.opensession();
+            session.beginTransaction();
+            Query query = session.createQuery(HQL_SELECT_BOOKS_WITH_NO_CATEGORY);
+            bookList = query.list();
+
+            session.getTransaction().commit();
+
+        } catch (SQLException e) {
+            session.getTransaction().rollback();
+            e.printStackTrace();
+        }
+
+        return bookList;
+    }
+     
+     
 }

@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:useBean id="category" scope="page" class="com.helpclasses.CategoryNames"/>
-<%--<jsp:useBean id="books" scope="session" class="com.helpclasses.BookLists"/>--%>
+<jsp:useBean id="books" scope="session" class="com.helpclasses.BookLists"/>
 
 <!DOCTYPE HTML>
 <html>
@@ -120,8 +120,7 @@
                                             <select class="form-control1" multiple="" name="bookId">
                                                 <c:set var="id" value="${sessionScope.catN2}"/>
                                                 <c:forEach  items="${books.booksWithNoCategory}" var="row">
-                                                    <option value="
-                                                            <c:out value="${row.getBIsbn()}"/>"><c:out value="${row.getBName()}"/>
+                                                    <option value="<c:out value="${row.getBIsbn()}"/>"><c:out value="${row.getBName()}"/>
                                                     </option>
                                                 </c:forEach>
                                             </select>
