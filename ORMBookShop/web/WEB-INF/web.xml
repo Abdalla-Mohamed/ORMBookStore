@@ -13,7 +13,7 @@
         <web-resource-collection>
             <web-resource-name>admin pages</web-resource-name>
             <description/>
-            <url-pattern>/adminPanel/secured/sign-in.jsp</url-pattern>
+            <url-pattern>/adminPanel/secured/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <description/>
