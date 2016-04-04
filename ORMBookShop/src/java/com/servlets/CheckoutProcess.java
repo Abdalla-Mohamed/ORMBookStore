@@ -64,7 +64,7 @@ public class CheckoutProcess extends HttpServlet {
 
         }
 
-        response.sendRedirect("/OnlineBookShop/customerSite/cart.jsp");
+        response.sendRedirect("/ORMBookShop/customerSite/cart.jsp");
 
     }
 

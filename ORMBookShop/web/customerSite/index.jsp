@@ -55,7 +55,7 @@
               <div class="bb-item">
                 <div class="bb-custom-content">
                   <div class="slide-inner">
-                    <div class="span4 book-holder"> <a href="book-detail.jsp"><img src="../productImage?imageName=${book.getBFrontImg()}" alt="Book" /></a>
+                    <div class="span4 book-holder"> <a href="book-detail.jsp"><img src="../productImage?imageName=${book.wrapPathBFrontImg()}" alt="Book" /></a>
                       <!--<div class="cart-price"> <a class="cart-btn2" href="cart.jsp">Add to Cart</a> <span class="price">$129.90</span> </div>-->
                     </div>
                     <div class="span8 book-detail">

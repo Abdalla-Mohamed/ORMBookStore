@@ -7,18 +7,10 @@ package com.daos;
 
 import org.hibernate.Session;
 
-import com.beans.Book;
-import com.beans.Customer;
 import com.beans.Cart;
-import com.beans.Category;
 import com.utilts.DbConnctor;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 
@@ -27,14 +19,15 @@ import org.hibernate.Query;
  * @author Administrator
  */
 public class Cart_Dao {
-   private static final String HQL_READ = "FROM  Cart  C  where C.customer.CId=?";
+
+    private static final String HQL_READ = "FROM  Cart  C  where C.customer.CId=?";
     private static final String CountOfBookInCart = "select NVL(sum(CBCount),0) from  Cart c  where  c.customer.CId= ? and c.book.BIsbn=?";
     private static final String HQL_DELETE = "DELETE  Cart C  WHERE C.customer.CId=?  and C.book.BIsbn=?";
     private static final String HQL_UPDATE = "UPDATE Cart   C set CBCount=? WHERE C.customer.CId=? and C.book.BIsbn=?";
     private static final String HQL_DELETE_USER_CART = "DELETE  Cart C  WHERE C.customer.CId=?";
 
-    private  Session session = null;
-   
+    private Session session = null;
+
     public Cart_Dao() {
 
     }
@@ -43,9 +36,9 @@ public class Cart_Dao {
         int count = 0;
         try {
             session = DbConnctor.opensession();
-           session.getTransaction().begin();
+            session.getTransaction().begin();
             Query query = session.createQuery(CountOfBookInCart).setParameter(0, cartObj.getId().getCId()).setParameter(1, cartObj.getId().getBId());
-            count =( (Long)query.uniqueResult()).intValue();
+            count = ((Long) query.uniqueResult()).intValue();
             session.getTransaction().commit();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -117,7 +110,6 @@ public class Cart_Dao {
         return cartList;
     }
 
-  
     public boolean freeCartOfCustmer(int customerId) throws SQLException {
         boolean isDeleted = false;
         try {

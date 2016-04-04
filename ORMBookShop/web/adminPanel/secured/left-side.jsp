@@ -22,13 +22,16 @@
 
         <!--sidebar nav start-->
         <ul class="nav nav-pills nav-stacked custom-nav">
-            <li><a href="index.jsp"><i class="lnr lnr-power-switch"></i>
-                    <span>Dashboard</span></a></li>
+        
 
             <li><a href="forms.jsp"><i class="fa fa-credit-card-alt"></i> <span>Forms</span></a></li>
             <li><a href="tables.jsp"><i class="lnr lnr-menu"></i> <span>Tables</span></a></li>          
             
-            <li class="menu-list"><a href="#"><i class="lnr lnr-envelope"></i> <span>MailBox</span></a>
+         <%--  
+    <li><a href="index.jsp"><i class="lnr lnr-power-switch"></i>
+                    <span>Dashboard</span></a></li>
+
+<li class="menu-list"><a href="#"><i class="lnr lnr-envelope"></i> <span>MailBox</span></a>
                 <ul class="sub-menu-list">
                     <li><a href="inbox.jsp">Inbox</a> </li>
                     <li><a href="compose-mail.jsp">Compose Mail</a></li>
@@ -38,7 +41,7 @@
                 <ul class="sub-menu-list">
                     <li><a href="charts.jsp">Basic Charts</a> </li>
                 </ul>
-            </li>
+            </li>--%>
 
 <!--            <li class="menu-list"><a href="#"><i class="lnr lnr-book"></i>  <span>Pages</span></a> 
             <li class="menu-list"><a href="#"><i class="fa fa-book"></i>  <span>Pages</span></a> -->

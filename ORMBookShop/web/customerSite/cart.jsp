@@ -73,7 +73,7 @@
 
                                                         <c:forEach items="${cartList}" var="cartItem" varStatus="loobIndex" >
                                                             <tr bgcolor="#FFFFFF" class=" product-detail">
-                                                                <td valign="top"><img width="100%" src="../productImage?imageName=${cartItem.getBook().getBFrontImg()}" /></td>
+                                                                <td valign="top"><img width="100%" src="../productImage?imageName=${cartItem.getBook().wrapPathBFrontImg()}" /></td>
                                                                 <td align="center" valign="center">${cartItem.getBook().getBName()}</td>
                                                                 <td align="center" valign="center"><a href="#">Edit</a></td>
                                                                 <td align="center" valign="center">${cartItem.getBook().getBPrice()}</td>
@@ -97,74 +97,77 @@
                                                 </figure>
                                                 <figure class="span4">
                                                     <div class="cart-option-box">
-                                                        <h4><i class="icon-money"></i> DISCOUNT CODES</h4>
-                                                        <p>Enter your coupon code if you have one.</p>
-                                                        <input type="text" id="inputDiscount" placeholder="">
-                                                            <br />
-                                                            <div class="clearfix">
-                                                                <a href="#" class="more-btn">apply coupon</a>
+                                                        <form action="../ChargeCredit" method="POST">
+                                                            <h4><i class="icon-money"></i> DISCOUNT CODES</h4>
+                                                            <p>Enter your coupon code if you have one.</p>
+                                                            <input type="text" name="inputDiscount" placeholder="">
+                                                                <br />
+                                                                <div class="clearfix">
+                                                                    <button class="more-btn">apply coupon</button>
                                                                 </div>
-                                                                </figure>
-                                                                <figure class="span4 price-total">
-                                                                    <div class="cart-option-box">
-                                                                        <table width="100%" border="0" cellpadding="10" class="total-payment">
-                                                                            <tr>
-                                                                                <td width="55%" align="right"><strong>your credit</strong></td>
-                                                                                <td width="45%" align="left">$${customer.CCredit}</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td align="right"><strong class="large-f">CART TOTAL</strong></td>
-                                                                                <td align="left"><strong class="large-f">$${total}</strong></td>
-                                                                            </tr>
-                                                                        </table>
-                                                                        <hr />
-                                                                          <c:if test="${ customer.CCredit lt total }">
+                                                        </form>
+                                                    </div>
+                                                </figure>
+                                                <figure class="span4 price-total">
+                                                    <div class="cart-option-box">
+                                                        <table width="100%" border="0" cellpadding="10" class="total-payment">
+                                                            <tr>
+                                                                <td width="55%" align="right"><strong>your credit</strong></td>
+                                                                <td width="45%" align="left">$${customer.CCredit}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td align="right"><strong class="large-f">CART TOTAL</strong></td>
+                                                                <td align="left"><strong class="large-f">$${total}</strong></td>
+                                                            </tr>
+                                                        </table>
+                                                        <hr />
+                                                        <c:if test="${ customer.CCredit lt total }">
 
-                                                                        <p style="color: red">you don't have enough credit</p>
-                                                                        </c:if>
-                                                                       
-                                                                        <c:if test="${ customer.CCredit ge total }">
-                                                                            <a href="../CheckoutProcess?customer=${customer.CId}&total=${total}" class="more-btn">proceed to checkout</a>
-                                                                        </c:if>
-                                                                    </div>
-                                                                </figure>
-                                                                </section>
-                                                                <!-- End Main Content -->
-                                                              
-                                                                </section>
-                                                                </section>
-                                                                <!-- End Main Content Holder -->
-                                                                <!-- Start Footer Top 1 -->
-                                                                <%@include file='footer.jsp'%>  
-                                                                <!-- End Main Footer -->
-                                                                </div>
-                                                                <!-- End Main Wrapper -->
+                                                            <p style="color: red">you don't have enough credit</p>
+                                                        </c:if>
 
-                                                                <!-- JS Files Start -->
-                                                                <script type="text/javascript" src="js/lib.js"></script><!-- lib Js -->
-                                                                <script type="text/javascript" src="js/modernizr.js"></script><!-- Modernizr -->
-                                                                <script type="text/javascript" src="js/easing.js"></script><!-- Easing js -->
-                                                                <script type="text/javascript" src="js/bs.js"></script><!-- Bootstrap -->
-                                                                <script type="text/javascript" src="js/bxslider.js"></script><!-- BX Slider -->
-                                                                <script type="text/javascript" src="js/input-clear.js"></script><!-- Input Clear -->
-                                                                <script src="js/range-slider.js"></script><!-- Range Slider -->
-                                                                <script src="js/jquery.zoom.js"></script><!-- Zoom Effect -->
-                                                                <script type="text/javascript" src="js/bookblock.js"></script><!-- Flip Slider -->
-                                                                <script type="text/javascript" src="js/custom.js"></script><!-- Custom js -->
-                                                                <script type="text/javascript" src="js/social.js"></script><!-- Social Icons -->
-                                                                <!-- JS Files End -->
-                                                                <noscript>
-                                                                    <style>
-                                                                        #socialicons>a span { top: 0px; left: -100%; -webkit-transition: all 0.3s ease; -moz-transition: all 0.3s ease-in-out; -o-transition: all 0.3s ease-in-out; -ms-transition: all 0.3s ease-in-out; transition: all 0.3s 	ease-in-out;}
-                                                                        #socialicons>ahover div{left: 0px;}
-                                                                    </style>
-                                                                </noscript>
-                                                                <script type="text/javascript">
-                                                                    /* <![CDATA[ */
-                                                                    $(document).ready(function () {
-                                                                        $('.social_active').hoverdir({});
-                                                                    })
-                                                                    /* ]]> */
-                                                                </script>
-                                                                </body>
-                                                                </html>
+                                                        <c:if test="${ customer.CCredit ge total }">
+                                                            <a href="../CheckoutProcess?customer=${customer.CId}&total=${total}" class="more-btn">proceed to checkout</a>
+                                                        </c:if>
+                                                    </div>
+                                                </figure>
+                                            </section>
+                                            <!-- End Main Content -->
+
+                                        </section>
+                                    </section>
+                                    <!-- End Main Content Holder -->
+                                    <!-- Start Footer Top 1 -->
+                                    <%@include file='footer.jsp'%>  
+                                    <!-- End Main Footer -->
+                                </div>
+                                <!-- End Main Wrapper -->
+
+                                <!-- JS Files Start -->
+                                <script type="text/javascript" src="js/lib.js"></script><!-- lib Js -->
+                                <script type="text/javascript" src="js/modernizr.js"></script><!-- Modernizr -->
+                                <script type="text/javascript" src="js/easing.js"></script><!-- Easing js -->
+                                <script type="text/javascript" src="js/bs.js"></script><!-- Bootstrap -->
+                                <script type="text/javascript" src="js/bxslider.js"></script><!-- BX Slider -->
+                                <script type="text/javascript" src="js/input-clear.js"></script><!-- Input Clear -->
+                                <script src="js/range-slider.js"></script><!-- Range Slider -->
+                                <script src="js/jquery.zoom.js"></script><!-- Zoom Effect -->
+                                <script type="text/javascript" src="js/bookblock.js"></script><!-- Flip Slider -->
+                                <script type="text/javascript" src="js/custom.js"></script><!-- Custom js -->
+                                <script type="text/javascript" src="js/social.js"></script><!-- Social Icons -->
+                                <!-- JS Files End -->
+                                <noscript>
+                                    <style>
+                                        #socialicons>a span { top: 0px; left: -100%; -webkit-transition: all 0.3s ease; -moz-transition: all 0.3s ease-in-out; -o-transition: all 0.3s ease-in-out; -ms-transition: all 0.3s ease-in-out; transition: all 0.3s 	ease-in-out;}
+                                        #socialicons>ahover div{left: 0px;}
+                                    </style>
+                                </noscript>
+                                <script type="text/javascript">
+                                    /* <![CDATA[ */
+                                    $(document).ready(function () {
+                                        $('.social_active').hoverdir({});
+                                    })
+                                    /* ]]> */
+                                </script>
+                            </body>
+                            </html>

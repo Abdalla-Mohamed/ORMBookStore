@@ -68,7 +68,7 @@
                                                 <td>${book.getBRating()}</td>
                                                 <!--<td><a href="#"><i class="fa fa-edit"/></a></td>-->
                                                 <td>
-                                                    <form action="/OnlineBookShop/UpdateBookDilog" method="post">
+                                                    <form action="/ORMBookShop/UpdateBookDilog" method="post">
                                                         <input type="hidden" name="ispnRow" value="${book.getBIsbn()}" />
                                                         <button type="submit" class="btn btn-primary fa fa-edit" /> 
                                                     </form>
@@ -79,7 +79,7 @@
                                                          
                                                       </a>
                                                     -->
-                                                    <form  action="/OnlineBookShop/BookEditController" method="get" >
+                                                    <form  action="/ORMBookShop/BookEditController" method="get" >
                                                         <input type="hidden" name="ispnRow" value="${book.getBIsbn()}" />
                                                         <button type="submit" class="btn btn-primary fa fa-times" /> 
                                                     </form>
@@ -97,7 +97,7 @@
                                     <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
                                             <div class="sign-up">
-                                                <form action="/OnlineBookShop/BookEditController" method="post">
+                                                <form action="/ORMBookShop/BookEditController" method="post">
                                                     <h3>Update book form</h3>
                                                     <p class="creating">Having hands on experience in creating innovative designs,I do offer design 
                                                         solutions which harness.</p>
@@ -107,7 +107,7 @@
                                                             <h4>Book ISBN* :</h4>
                                                         </div>
                                                         <div class="sign-up2">
-                                                            <input name="isbn" type="hidden" placeholder=" " required=" " value="${updateBook.BIsbn}"/>
+                                                            <input name="isbn" type="hidden" placeholder=" " required=" "  value="${updateBook.BIsbn}"/>
                                                         </div>
                                                         <div class="clearfix"> </div>
                                                     </div>
@@ -125,7 +125,7 @@
                                                             <h4>Count* :</h4>
                                                         </div>
                                                         <div class="sign-up2">
-                                                            <input name="count" type="text" placeholder=" " oninput="validity.valid||(value='');" required=" " value="${updateBook.BCount}" />
+                                                            <input name="count" type="number" placeholder=" " min="1"  oninput="validity.valid||(value='');" required=" " value="${updateBook.BCount}" />
                                                         </div>
                                                         <div class="clearfix"> </div>
                                                     </div>
@@ -134,7 +134,7 @@
                                                             <h4>Price* :</h4>
                                                         </div>
                                                         <div class="sign-up2">
-                                                            <input name="price" type="text" placeholder=" " required=" " oninput="validity.valid||(value='');" value="${updateBook.BPrice}"/>
+                                                            <input name="price" type="text" placeholder=" " required=" " min="1"  oninput="validity.valid||(value='');"  value="${updateBook.BPrice}"/>
                                                         </div>
                                                         <div class="clearfix"> </div>
                                                     </div>
@@ -166,7 +166,7 @@
                                                             <h4>Rate* :</h4>
                                                         </div>
                                                         <div class="sign-up2">
-                                                            <input name="rate"  type="text" placeholder=" " required=" " oninput="validity.valid||(value='');" value="${updateBook.BRating}" />
+                                                            <input name="rate"  type="number" placeholder=" " min="1" max="5" oninput="validity.valid||(value='');" required=" "  value="${updateBook.BRating}" />
                                                         </div>
                                                         <div class="clearfix"> </div>
                                                     </div>

@@ -18,7 +18,7 @@
     <!-- main content start-->
 		<div class="main-content main-content5">
 			<!-- header-starts -->
-			<%@include file='header.jsp'%>
+			   <%--<%@include file='header.jsp'%>--%>
 	<!-- //header-ends -->
 			<div id="page-wrapper">
 				<div class="graphs">

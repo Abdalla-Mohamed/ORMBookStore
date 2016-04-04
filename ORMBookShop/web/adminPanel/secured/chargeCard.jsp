@@ -10,8 +10,7 @@
 <jsp:useBean id="chargingCardList" scope="page" class="com.beans.ChargingCardList"/>  
 <%@page import="com.beans.ChargingCard" %>
 <jsp:useBean id="chargingCard" scope="session" class="com.beans.ChargingCard"/>
-<%@page import="com.daos.ChargingCard_Dao" %>
-<jsp:useBean id="chargingCardDao" scope="page" class="com.daos.ChargingCard_Dao"/>
+
 
 
 <!DOCTYPE HTML>
@@ -28,7 +27,7 @@
             <!-- main content start-->
             <div class="main-content main-content3">
                 <!-- header-starts -->
-               <%@include file='header.jsp'%>
+           <%--    <%@include file='header.jsp'%>--%>
                 <!-- //header-ends -->
                 <div id="page-wrapper">
                     <div class="graphs">

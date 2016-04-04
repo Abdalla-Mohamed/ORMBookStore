@@ -81,18 +81,22 @@ public class ChargingCardController extends HttpServlet {
         int values = Integer.parseInt(request.getParameter("selectCardValue"));
         int counts = Integer.parseInt(request.getParameter("selectCardCount"));
         
-        int counters = counts;
-        for(int i=0; i<counters; i++){
+
             allCardNumber=new ArrayList<>();
 
             try {
                 chargingCard_Dao = new ChargingCard_Dao();
-              allCardNumber  = chargingCard_Dao.getAllCardNumber(values);
+                allCardNumber  = chargingCard_Dao.getAllCardNumber(values,counts);
                 System.out.println("allCardNumber is "+allCardNumber);
+//                chargingCard_Dao.updateCardPrinted(allCardNumber);
+//                
+//                for (ChargingCard chargingCard1 : allCardNumber) {
+//                    
+//                }
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
-        }
+       // }
         }
         
         HttpSession session=request.getSession(true);

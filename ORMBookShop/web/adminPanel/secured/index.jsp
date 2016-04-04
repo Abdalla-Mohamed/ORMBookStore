@@ -19,7 +19,7 @@
 		<!-- main content start-->
 		<div class="main-content">
 			<!-- header-starts -->
-			<%@include file='header.jsp'%>
+			<%--<%@include file='header.jsp'%>--%>
 		<!-- //header-ends -->
 			<div id="page-wrapper">
 				<div class="graphs">
@@ -74,7 +74,7 @@
 
 			<!-- switches -->
 		<div class="switches">
-			<div class="col-4">
+			<%--<div class="col-4">
 				<div class="col-md-4 switch-right">
 					<div class="switch-right-grid">
 						<div class="switch-right-grid1">
@@ -228,12 +228,12 @@
 					</div>
 				</div>
 				<div class="clearfix"></div>
-			</div>
+			</div>--%>
 		</div>
 		<!-- //switches -->
 		<div class="col_1">
 			<div class="col-md-4 span_8">
-				<div class="activity_box">
+			<%--	<div class="activity_box">
 					<h3>Inbox</h3>
 					<div class="scrollbar scrollbar1" id="style-2">
 						<div class="activity-row">
@@ -282,10 +282,10 @@
 							<div class="clearfix"> </div>
 						</div>
 					</div>
-				</div>
+				</div>--%>
 			</div>
 			<div class="col-md-4 span_8">
-				<div class="activity_box activity_box1">
+				<%--<div class="activity_box activity_box1">
 					<h3>chat</h3>
 					<div class="scrollbar" id="style-2">
 						<div class="activity-row activity-row1">
@@ -337,10 +337,10 @@
 						<input type="text" value="Enter your text" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Enter your text';}" required="">
 						<input type="submit" value="Send" required=""/>		
 					</form>
-				</div>
+				</div>--%>
 			</div>
 			<div class="col-md-4 span_8">
-				<div class="activity_box activity_box2">
+			<%--	<div class="activity_box activity_box2">
 					<h3>todo</h3>
 					<div class="scrollbar" id="style-2">
 						<div class="activity-row activity-row1">
@@ -396,7 +396,7 @@
 						<input type="text" value="Enter your text" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Enter your text';}" required="">
 						<input type="submit" value="Submit" required=""/>		
 					</form>
-				</div>
+				</div>--%>
 				<div class="clearfix"> </div>
 			</div>
 			<div class="clearfix"> </div>
