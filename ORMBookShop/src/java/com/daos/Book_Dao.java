@@ -37,7 +37,8 @@ public class Book_Dao {
 //    private static final String SQL_SELECT_COUNT = "sELECT B_COUNT FROM BOOK where B_ISBN=?";
     private Session session = null;
 
-    private static final String HQL_READ_BOOKS = "from Book";
+    private static final String HQL_READ_BOOKS = "from Book b where b.BCount>0";
+    private static final String HQL_READ_ADMIN_BOOKS = "from Book b where b.BCount>=0";
     private static final String HQL_READ_BOOKBYNAME = "from Book where BName=? ";
     private static final String HQL_SELECT_COUNT = "SELECT b.BCount FROM Book b where b.BIsbn =?";
 

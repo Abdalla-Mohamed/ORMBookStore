@@ -99,6 +99,12 @@ public class BookEditController extends HttpServlet {
         HttpSession session = request.getSession(true);
         session.setAttribute("book", book);
 
+        try {
+            book=bookDao.readByIsbn(id);
+        } catch (SQLException ex) {
+            Logger.getLogger(BookEditController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         book.setBName(bName);
         book.setBIsbn(id);
         book.setBCount(count);

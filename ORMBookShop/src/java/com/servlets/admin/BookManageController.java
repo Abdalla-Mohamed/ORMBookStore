@@ -108,7 +108,7 @@ public class BookManageController extends HttpServlet {
             // get ID of new book 
             Book newBook = book_Dao.readByName(book.getBName());
             // create new path where images of book will saved
-            String bookImagesFolder = Book.uplodedImgFolderDestntion + newBook.getBIsbn();
+            String bookImagesFolder = Book.uplodedImgFolderDestntion +"/"+ newBook.getBIsbn();
 
             // get images of book from form
             FileItem imgFront = parseParameterMap.get("imgFront").get(0);
