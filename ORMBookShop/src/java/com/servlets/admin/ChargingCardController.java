@@ -26,6 +26,7 @@ public class ChargingCardController extends HttpServlet {
 
     private ChargingCard chargingCard;
     private ChargingCard_Dao chargingCard_Dao;
+    List<ChargingCard> allCardNumber;
     
     public ChargingCardController() {
         super();
@@ -50,7 +51,6 @@ public class ChargingCardController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-List<ChargingCard> allCardNumber=new ArrayList();
         
         if(request.getParameter("cardValue")!=null || request.getParameter("cardCount")!=null){
         int amount = Integer.parseInt(request.getParameter("cardValue"));
@@ -81,16 +81,22 @@ List<ChargingCard> allCardNumber=new ArrayList();
         int values = Integer.parseInt(request.getParameter("selectCardValue"));
         int counts = Integer.parseInt(request.getParameter("selectCardCount"));
         
-        int counters = counts;
-        for(int i=0; i<counters; i++){
+
+            allCardNumber=new ArrayList<>();
+
             try {
                 chargingCard_Dao = new ChargingCard_Dao();
-              allCardNumber  = chargingCard_Dao.getAllCardNumber(values);
-                System.out.println("ehh"+allCardNumber);
+                allCardNumber  = chargingCard_Dao.getAllCardNumber(values,counts);
+                System.out.println("allCardNumber is "+allCardNumber);
+//                chargingCard_Dao.updateCardPrinted(allCardNumber);
+//                
+//                for (ChargingCard chargingCard1 : allCardNumber) {
+//                    
+//                }
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
-        }
+       // }
         }
         
         HttpSession session=request.getSession(true);
