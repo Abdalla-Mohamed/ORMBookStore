@@ -11,7 +11,7 @@
 <%@include file='head.jsp'%>
 <%@page import="com.beans.Customer"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<jsp:useBean id="customer" scope="page" class="com.beans.Customer"/>
+<jsp:useBean id="customer" scope="page" class="com.daos.Customer_Dao"/>
 
 <body class="sticky-header left-side-collapsed"  onload="initMap()">
 	<section>
@@ -54,7 +54,7 @@
 									</thead>
 									<tbody>
                                                                              <c:set var="count" value="0" scope="page" />
-                                                                                 <c:forEach  items="${customer.allCustomers}" var="row">
+                                                                             <c:forEach  items="${customer.allCustomers}" var="row">
                                                                                      <c:set var="count" value="${count + 1}" scope="page"/>
 										<tr class="active">
                                                                                 
