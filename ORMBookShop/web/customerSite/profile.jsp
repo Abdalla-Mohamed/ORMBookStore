@@ -72,9 +72,9 @@
     <h3>your favorite categories :</h3>
     <c:set var="id" value="${customer.CId}"/>
 
-    <%--<c:forEach  items="${favoriteCat.getFCategories(id)}" var="row">--%>
-     <!--<h4>  <c:out value="${row.getCatName()}"/>  <hr>-->
-       <%--</c:forEach>--%>
+    <c:forEach  items="${favoriteCat.getFCategories(id)}" var="row">
+     <h4>  <c:out value="${row.getCatName()}"/>  <hr>
+       </c:forEach>
                 </div>
                 
             	<div class="row-2"> </div>

@@ -30,6 +30,7 @@ public class Book_Dao {
     private static final String HQL_READ_BOOKBYNAME = "from Book where BName=? ";
     private static final String HQL_SELECT_COUNT = "SELECT b.BCount FROM Book b where b.BIsbn =?";
     private static final String HQL_SELECT_BOOKS_WITH_NO_CATEGORY = " FROM Book b where b.categories is empty";
+    private static final String HQL_SELECT_BOOKS_WITH_OTHER_CATEGORY = " FROM Book b where b.categories. is empty";
 
     public Book_Dao() {
 
@@ -268,5 +269,12 @@ public class Book_Dao {
         return bookList;
     }
      
+    
+     public List<Book> getOtherBooks() throws SQLException {
+        List<Book> bookList = new ArrayList();
+     
+        
+        return bookList;
+     }
      
 }

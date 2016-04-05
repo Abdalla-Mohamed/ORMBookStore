@@ -88,7 +88,7 @@
                                                                 <c:out value="${row.getCatName()}"/>                                                
 
                                                                 <tr><td><c:out value="${row.getCatName()}"/></td>
-                                                                    <td><input type="checkbox" name="fCat" value="<c:out value='${row.getCatId()}'/>"></input></td>
+                                                                    <td><input type="checkbox" name="favCategory" value="<c:out value='${row.getCatId()}'/>"></input></td>
 
                                                                 </tr>
 
