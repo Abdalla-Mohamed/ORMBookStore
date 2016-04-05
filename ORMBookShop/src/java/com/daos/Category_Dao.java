@@ -38,6 +38,7 @@ public class Category_Dao {
     private static final String HQL_READ_BYNAME = "from Category where catName=:catname";
     private static final String HQL_READ_BYID = "from Category c where c.catId=?";
     private static final String HQL_READ_BOOKS_FROM_CATEGORY = "select c.books from Category c where c.catId=?";
+    private static final String HQL_READ_BOOKS_NOT_IN_CATEGORY = "select c.books from Category c where c.catId!=?";
     private static final String HQL_READ_ALL = "from Category";
 
     public void addCategory(Category categoryObj) throws SQLException {
@@ -118,5 +119,23 @@ public class Category_Dao {
 
         return bookList;
     }
-     
+    
+     public List<Book> getOtherBooks(int id) throws SQLException {
+        List<Book> bookList = new ArrayList();
+
+        try {
+            session = DbConnctor.opensession();
+            session.beginTransaction();
+            Query query = session.createQuery(HQL_READ_BOOKS_NOT_IN_CATEGORY).setInteger(0,id);
+            bookList = query.list();
+
+            session.getTransaction().commit();
+
+        } catch (SQLException e) {
+            session.getTransaction().rollback();
+            e.printStackTrace();
+        }
+
+        return bookList;
+    }
 }

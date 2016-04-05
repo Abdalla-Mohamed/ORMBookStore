@@ -28,6 +28,9 @@ public class Interests_Dao {
     private static final String SQL_DELETE = "DELETE FROM INTEREST WHERE CAT_ID=? and CUSTOMER_ID =?";
     private static final String CAT_LIST = "SELECT * FROM CATEGORY where CAT_ID IN (select CAT_ID from INTEREST where CUSTOMER_ID =?)";
     private static final String SQL_DELETECCUSTOMERCAT = "DELETE FROM INTEREST WHERE CUSTOMER_ID =?";
+   
+    
+    
     Session session = null;
     PreparedStatement statement = null;
     ResultSet resultSet = null;
@@ -70,24 +73,24 @@ public class Interests_Dao {
         return deleted;
     }
 
-    public List<Category> getCustomerCategories(int customerId)throws SQLException {
-        ResultSet result;
-        List<Category> list = null;
-        try {
-            session = DbConnctor.opensession();
-//            statement = session.prepareStatement(CAT_LIST);
-            statement.setInt(1, customerId);
-            result =statement.executeQuery();
-            list=getCategories(result);
-            
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            DbConnctor.closesession();
-        }
-        
-        return list;
-    }
+//    public List<Category> getCustomerCategories(int customerId)throws SQLException {
+//        ResultSet result;
+//        List<Category> list = null;
+//        try {
+//            session = DbConnctor.opensession();
+////            statement = session.prepareStatement(CAT_LIST);
+//            statement.setInt(1, customerId);
+//            result =statement.executeQuery();
+//            list=getCategories(result);
+//            
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        } finally {
+//            DbConnctor.closesession();
+//        }
+//        
+//        return list;
+//    }
 
     
     private List<Category> getCategories(ResultSet result){

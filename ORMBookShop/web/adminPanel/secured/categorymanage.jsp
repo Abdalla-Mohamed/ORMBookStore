@@ -179,8 +179,8 @@
 
 
                                 <div class="col-sm-11 " >
-                                    <button type="submit" class="btn btn-info pull-right" id="delB" >delete book</button>
-
+                                    <!--<button type="submit" class="btn btn-info pull-right" id="delB" >delete book</button>-->
+                                    <h4>choose category to view books</h>
                                 </div>
                             </form>
 

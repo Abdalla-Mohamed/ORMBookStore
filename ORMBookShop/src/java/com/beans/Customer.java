@@ -145,7 +145,7 @@ public class Customer  implements java.io.Serializable {
         this.CCredit = CCredit;
     }
 
-@ManyToMany(fetch=FetchType.LAZY)
+@ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(name="INTEREST", schema="BOOKSTORE", joinColumns = { 
         @JoinColumn(name="CUSTOMER_ID", nullable=false, updatable=false) }, inverseJoinColumns = { 
         @JoinColumn(name="CAT_ID", nullable=false, updatable=false) })

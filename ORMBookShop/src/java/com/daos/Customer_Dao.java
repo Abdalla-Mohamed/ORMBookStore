@@ -5,11 +5,15 @@
  */
 package com.daos;
 
+import com.beans.Category;
 import com.beans.Customer;
 import com.utilts.DbConnctor;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -171,5 +175,44 @@ public class Customer_Dao {
 
         return cridit;
 
+    }
+    public List<Category> getCustomerCategories(int customerId){
+        List<Category>list=new ArrayList();
+        try {
+            Customer customer = findCustomerByID(customerId);
+            list.addAll(customer.getCategories());
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Customer_Dao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       return list;
+    }
+    
+    public void deleteCustomersCategories(int customerId){
+        
+        try {
+            Customer customer = findCustomerByID(customerId);
+            customer.getCategories().clear();
+            update(customer);
+        } catch (SQLException ex) {
+            Logger.getLogger(Customer_Dao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void addCcustomerInterests(int customerId,Set Categories){
+        
+         try {
+             deleteCustomersCategories(customerId);
+             
+          Customer customer = findCustomerByID(customerId);
+            
+            customer.getCategories().addAll(Categories); 
+             update(customer);
+             
+        } catch (SQLException ex) {
+            Logger.getLogger(Customer_Dao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
     }
 }
