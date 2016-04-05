@@ -24,19 +24,29 @@ public class DbConnctor {
     static private AnnotationConfiguration configure;
     static private SessionFactory sessionFactory;
     static private Session session;
-
+    
     private DbConnctor() {
 
     }
 
     static synchronized public Session opensession() throws SQLException {
-
-        if (session == null || !session.isOpen()) {
-            configure = new AnnotationConfiguration().configure("hibernate.cfg.xml")
+        
+        if(configure==null){
+             configure = new AnnotationConfiguration().configure("hibernate.cfg.xml")
                     //                .setInterceptor(new InterceptorInsert())
                     .addPackage(" hyperwithannotations.entyties").configure();
 
-            sessionFactory = configure.buildSessionFactory();
+          
+        }
+       if(sessionFactory==null ||sessionFactory.isClosed()){
+          sessionFactory = configure.buildSessionFactory();
+            System.out.println("configer done");
+ 
+       }
+          
+        if (session == null || !session.isOpen()) {
+                       System.out.println("open session");
+
 
             session = sessionFactory.getCurrentSession();
 

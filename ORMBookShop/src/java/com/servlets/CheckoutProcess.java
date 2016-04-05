@@ -54,8 +54,9 @@ public class CheckoutProcess extends HttpServlet {
         if (checkoutTheCart) {
             try {
                
-                Customer customer =  (Customer) request.getSession().getAttribute(SharedNames.loginedCustomer);
-                customer.setCCredit((int)new Customer_Dao().getCustomerCredit(customerId));
+                Customer customer =  new Customer_Dao().findCustomerByID(customerId);
+//                customer.setCCredit((int)new Customer_Dao().getCustomerCredit(customerId));
+                System.out.println("new cridit:: "+customer.getCCredit());
                  request.getSession().setAttribute(SharedNames.loginedCustomer,customer);
             } catch (SQLException ex) {
                 Logger.getLogger(CheckoutProcess.class.getName()).log(Level.SEVERE, null, ex);
@@ -64,7 +65,7 @@ public class CheckoutProcess extends HttpServlet {
 
         }
 
-        response.sendRedirect("/ORMBookShop/customerSite/cart.jsp");
+        response.sendRedirect("/ORMBookShop/customerSite/order-recieved.jsp");
 
     }
 

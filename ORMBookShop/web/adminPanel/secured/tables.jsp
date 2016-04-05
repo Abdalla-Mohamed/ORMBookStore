@@ -8,7 +8,7 @@
 <%@page import="com.helpclasses.BookLists"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:useBean id="bookLists" scope="page" class="com.helpclasses.BookLists"/>
-<c:set var="books" value="${bookLists.allBooks}"> </c:set> 
+<c:set var="books" value="${bookLists.adminBooks}"> </c:set> 
 <jsp:useBean id="updateBook" scope="session"  class="com.beans.Book"/>
 
 

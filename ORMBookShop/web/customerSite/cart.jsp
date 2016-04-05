@@ -62,8 +62,8 @@
                                                     <table width="100%" border="0" cellpadding="10">
                                                         <tr>
                                                             <!--<th width="14%">&nbsp;</th>-->
-                                                            <th width="20%" align="left">Product Name</th>
-                                                            <th width="6%"></th>
+                                                            <th width="20%" align="left"></th>
+                                                            <th width="20%" >Product Name</th>
                                                             <th width="10%">Unit Price</th>
                                                             <th width="10%">Quantity</th>
                                                             <th width="10%">Available Quantity</th>
@@ -75,12 +75,16 @@
                                                             <tr bgcolor="#FFFFFF" class=" product-detail">
                                                                 <td valign="top"><img width="100%" src="../productImage?imageName=${cartItem.getBook().wrapPathBFrontImg()}" /></td>
                                                                 <td align="center" valign="center">${cartItem.getBook().getBName()}</td>
-                                                                <td align="center" valign="center"><a href="#">Edit</a></td>
                                                                 <td align="center" valign="center">${cartItem.getBook().getBPrice()}</td>
                                                                 <td align="center" valign="center"><input name="" type="number" step="any" max="${cartItem.getBook().getBCount()}" value="${cartItem.getCBCount()}" readonly='true' /></td>
                                                                 <td align="center" valign="center"><input name="" type="text" value="${cartItem.getBook().getBCount()}" readonly="true" /></td>
                                                                 <td align="center" valign="center">${cartItem.getBook().getBPrice()*cartItem.getCBCount()}</td>
-                                                                <td align="center" valign="center"><a href="#"> <i class="icon-trash"></i></a></td>
+                                                                
+                                                                
+                                                                <form action="/ORMBookShop/RemoveFromCart" method="POST">
+                                                                        <td align="center" valign="center">    <button type="submit" ><i class="icon-trash"></i></button></td>
+                                                                        <input type="hidden" name="ispnRow" value="${cartItem.getBook().getBIsbn()}" />
+                                                                    </form>
                                                             </tr>
                                                             <c:set var="total" value="${total+(cartItem.getBook().getBPrice()*cartItem.getCBCount())}"/>
                                                         </c:forEach>  

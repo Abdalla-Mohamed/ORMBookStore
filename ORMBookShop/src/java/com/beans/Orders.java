@@ -96,7 +96,7 @@ public class Orders implements java.io.Serializable {
         this.total = total;
     }
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "orders" ,cascade = {CascadeType.ALL,CascadeType.REMOVE})
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "orders" ,cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
     
     public Set<OrderBook> getOrderBooks() {
         return this.orderBooks;

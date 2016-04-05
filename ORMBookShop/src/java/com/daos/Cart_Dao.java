@@ -118,6 +118,7 @@ public class Cart_Dao {
             Query query = session.createQuery(HQL_DELETE_USER_CART).setInteger(0, customerId);
             query.executeUpdate();
             session.getTransaction().commit();
+            isDeleted=true;
 
         } catch (HibernateException e) {
             session.getTransaction().rollback();

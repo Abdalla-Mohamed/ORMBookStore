@@ -109,27 +109,32 @@
 
                                                         <article class="item-holder">
                                                             <div class="span2">
-                                                                 <input type="hidden" name="ispnRow" value="${book.getBIsbn()}" />
+                                                                <input type="hidden" name="ispnRow" value="${book.getBIsbn()}" />
                                                                 <a> <img src="../productImage?imageName=${book.wrapPathBFrontImg()}"  /> </a>
                                                             </div>
-                                                            
+
                                                             <div class="span10">
                                                                 <form method="post"   action="../ShowBookDetails1"    >
-                                                                   <input type="hidden" name="ispnRow" value="${book.getBIsbn()}" />
+                                                                    <input type="hidden" name="ispnRow" value="${book.getBIsbn()}" />
                                                                     <button type="submit" class=" more-btn" >more Details</button>
-                                                                <div class="title-bar"><a >${book.getBName()}</a> <span>by Khalid Hoessini</span></div>
+                                                                    <div class="title-bar"><a >${book.getBName()}</a> <span>by Khalid Hoessini</span></div>
 
-                                                            </form>
+                                                                </form>
                                                                 <!--<strong>1 Reviews</strong>-->
                                                                 <span class="rating-bar"><img alt="Rating Star" src="images/rating-star.png"></span>
                                                                 <p> ${book.getBDescription()} </p>
                                                                 <div class="cart-price">
-                                                                     <form method="POST">
-                                                                    <button type="button" class="cart-btn2" style="border: none">Info</button>
-                                                                    <span class="price">${book.getBPrice()}</span>
-                                                                      <input type="hidden" name="ispnRow" value="${book.getBIsbn()}" />
-                                                                      <input name="count" type="hidden" value="1" />
-                                                                </form>
+                                                                    <form action="/ORMBookShop/AddToCart" method="POST">
+                                                                        <c:if test="${sessionScope.customer!=null }">                            
+                                                                            <button type="submit" class="cart-btn2" style="border: none">Info</button>
+                                                                        </c:if>
+                                                                        <c:if test="${sessionScope.customer==null }">
+                                                                            <button type="button" class=" more-btn" style="float: left;" onclick="window.location = 'checkout.jsp'">Login</button>
+                                                                        </c:if>
+                                                                            <span class="price" style="margin-left: 5px">${book.getBPrice()}</span>
+                                                                        <input type="hidden" name="ispnRow" value="${book.getBIsbn()}" />
+                                                                        <input name="count" type="hidden" value="1" />
+                                                                    </form>
                                                                 </div>
                                                             </div>
                                                         </article>
@@ -165,118 +170,118 @@
                                             <!-- End Main Content -->
 
                                             <!-- Start Main Side Bar -->
-<!--                                            <section class="span3">
-                                                <div class="side-holder">
-                                                    <article class="banner-ad"><img src="images/image20.jpg" alt="Banner Ad" /></article>
-                                                </div>
-
-                                                 Start Shop by Section 
-                                                <div class="side-holder">
-                                                    <article class="shop-by-list">
-                                                        <h2>Shop by</h2>
-                                                        <div class="side-inner-holder">
-                                                            <strong class="title">Category</strong>
-                                                            <ul class="side-list">
-                                                                <li><a href="grid-view.jsp">Fiction (15)</a></li>
-                                                                <li><a href="grid-view.jsp">Healthcare (15)</a></li>
-                                                                <li><a href="grid-view.jsp">Technology (15)</a></li>
-                                                                <li><a href="grid-view.jsp">Science(15)</a></li>
-                                                            </ul>
-                                                            <strong class="title">Price</strong>
-                                                            <ul class="side-list">
-                                                                <li><a href="#">$0.00 - $10,00.00 (13)</a></li>
-                                                                <li><a href="#">$10,00.00 - $20,00.00 (2)</a></li>
-                                                            </ul>
-                                                            <strong class="title">Author</strong>
-                                                            <ul class="side-list">
-                                                                <li><a href="book-detail.jsp">Khalid Hoessini (9)</a></li>
-                                                                <li><a href="book-detail.jsp">William Blake (2)</a></li>
-                                                                <li><a href="book-detail.jsp">Anna Kathrinena (1)</a></li>
-                                                                <li><a href="book-detail.jsp">Gray Alvin (3)</a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </article>
-                                                </div>
-                                                 End Shop by Section 
-
-                                                 Start Latest Reviews Section 
-                                                <div class="side-holder">
-                                                    <article class="l-reviews">
-                                                        <h2>Latest Reviews</h2>
-                                                        <div class="side-inner-holder">
-                                                            <article class="r-post">
-                                                                <div class="r-img-title">
-                                                                    <img src="images/image21.jpg" />
-                                                                    <div class="r-det-holder">
-                                                                        <strong class="r-author"><a href="book-detail.jsp">The Kite Runner</a></strong>
-                                                                        <span class="r-by">by Khalid Hoessini</span>
-                                                                        <span class="rating-bar"><img src="images/rating-star.png" alt="Rating Star"/></span>
-                                                                    </div>
-                                                                </div>
-                                                                <span class="r-type">Vivamus bibendum massa</span>
-                                                                <p>“ Suspendisse tortor lacus, suscipit eget pharetra sed, ornare sed elit. Curabitur mollis, justo sit amet fermentum ” </p>
-                                                                <span class="r-author">Review by BookShoppe’</span>
-                                                            </article>
-                                                            <article class="r-post">
-                                                                <div class="r-img-title">
-                                                                    <img src="images/image21.jpg" />
-                                                                    <div class="r-det-holder">
-                                                                        <strong class="r-author"><a href="book-detail.jsp">The Kite Runner</a></strong>
-                                                                        <span class="r-by">by Khalid Hoessini</span>
-                                                                        <span class="rating-bar"><img src="images/rating-star.png" alt="Rating Star"/></span>
-                                                                    </div>
-                                                                </div>
-                                                                <span class="r-type">Vivamus bibendum massa</span>
-                                                                <p>“ Suspendisse tortor lacus, suscipit eget pharetra sed, ornare sed elit. Curabitur mollis, justo sit amet fermentum ” </p>
-                                                                <span class="r-author">Review by BookShoppe’</span>
-                                                            </article>
-                                                        </div>
-                                                    </article>
-                                                </div>
-                                                 End Latest Reviews Section 
-
-                                                 Start Price Range Section 
-                                                <div class="side-holder">
-                                                    <article class="price-range">
-                                                        <h2>Price Range</h2>
-                                                        <div class="side-inner-holder">
-                                                            <p>Select the price range for better search</p>                    	
-                                                            <div id="slider-range"></div>
-                                                            <p> <input type="text" id="amount" class="r-input"> </p>
-                                                        </div>
-                                                    </article>
-                                                </div>
-                                                 End Price Range Section 
-
-                                                 Start Community Poll Section 
-                                                <div class="side-holder">
-                                                    <article class="price-range">
-                                                        <h2>Community Poll</h2>
-                                                        <div class="side-inner-holder">
-                                                            <p>Who is your favourite American author?</p>
-                                                            <label class="radio">
-                                                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-                                                                    Jane Austin
-                                                            </label>
-                                                            <label class="radio">
-                                                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-                                                                    William Blake
-                                                            </label>
-                                                            <label class="radio">
-                                                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-                                                                    Keith Urban
-                                                            </label>
-                                                            <label class="radio">
-                                                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-                                                                    Anna Smith
-                                                            </label>
-                                                            <a href="#" class="vote-btn">Vote</a>
-                                                        </div>
-                                                    </article>
-                                                </div>
-                                                 End Community Poll Section 
-
-                                            </section>-->
+                                            <!--                                            <section class="span3">
+                                                                                            <div class="side-holder">
+                                                                                                <article class="banner-ad"><img src="images/image20.jpg" alt="Banner Ad" /></article>
+                                                                                            </div>
+                                            
+                                                                                             Start Shop by Section 
+                                                                                            <div class="side-holder">
+                                                                                                <article class="shop-by-list">
+                                                                                                    <h2>Shop by</h2>
+                                                                                                    <div class="side-inner-holder">
+                                                                                                        <strong class="title">Category</strong>
+                                                                                                        <ul class="side-list">
+                                                                                                            <li><a href="grid-view.jsp">Fiction (15)</a></li>
+                                                                                                            <li><a href="grid-view.jsp">Healthcare (15)</a></li>
+                                                                                                            <li><a href="grid-view.jsp">Technology (15)</a></li>
+                                                                                                            <li><a href="grid-view.jsp">Science(15)</a></li>
+                                                                                                        </ul>
+                                                                                                        <strong class="title">Price</strong>
+                                                                                                        <ul class="side-list">
+                                                                                                            <li><a href="#">$0.00 - $10,00.00 (13)</a></li>
+                                                                                                            <li><a href="#">$10,00.00 - $20,00.00 (2)</a></li>
+                                                                                                        </ul>
+                                                                                                        <strong class="title">Author</strong>
+                                                                                                        <ul class="side-list">
+                                                                                                            <li><a href="book-detail.jsp">Khalid Hoessini (9)</a></li>
+                                                                                                            <li><a href="book-detail.jsp">William Blake (2)</a></li>
+                                                                                                            <li><a href="book-detail.jsp">Anna Kathrinena (1)</a></li>
+                                                                                                            <li><a href="book-detail.jsp">Gray Alvin (3)</a></li>
+                                                                                                        </ul>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </div>
+                                                                                             End Shop by Section 
+                                            
+                                                                                             Start Latest Reviews Section 
+                                                                                            <div class="side-holder">
+                                                                                                <article class="l-reviews">
+                                                                                                    <h2>Latest Reviews</h2>
+                                                                                                    <div class="side-inner-holder">
+                                                                                                        <article class="r-post">
+                                                                                                            <div class="r-img-title">
+                                                                                                                <img src="images/image21.jpg" />
+                                                                                                                <div class="r-det-holder">
+                                                                                                                    <strong class="r-author"><a href="book-detail.jsp">The Kite Runner</a></strong>
+                                                                                                                    <span class="r-by">by Khalid Hoessini</span>
+                                                                                                                    <span class="rating-bar"><img src="images/rating-star.png" alt="Rating Star"/></span>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                            <span class="r-type">Vivamus bibendum massa</span>
+                                                                                                            <p>“ Suspendisse tortor lacus, suscipit eget pharetra sed, ornare sed elit. Curabitur mollis, justo sit amet fermentum ” </p>
+                                                                                                            <span class="r-author">Review by BookShoppe’</span>
+                                                                                                        </article>
+                                                                                                        <article class="r-post">
+                                                                                                            <div class="r-img-title">
+                                                                                                                <img src="images/image21.jpg" />
+                                                                                                                <div class="r-det-holder">
+                                                                                                                    <strong class="r-author"><a href="book-detail.jsp">The Kite Runner</a></strong>
+                                                                                                                    <span class="r-by">by Khalid Hoessini</span>
+                                                                                                                    <span class="rating-bar"><img src="images/rating-star.png" alt="Rating Star"/></span>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                            <span class="r-type">Vivamus bibendum massa</span>
+                                                                                                            <p>“ Suspendisse tortor lacus, suscipit eget pharetra sed, ornare sed elit. Curabitur mollis, justo sit amet fermentum ” </p>
+                                                                                                            <span class="r-author">Review by BookShoppe’</span>
+                                                                                                        </article>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </div>
+                                                                                             End Latest Reviews Section 
+                                            
+                                                                                             Start Price Range Section 
+                                                                                            <div class="side-holder">
+                                                                                                <article class="price-range">
+                                                                                                    <h2>Price Range</h2>
+                                                                                                    <div class="side-inner-holder">
+                                                                                                        <p>Select the price range for better search</p>                    	
+                                                                                                        <div id="slider-range"></div>
+                                                                                                        <p> <input type="text" id="amount" class="r-input"> </p>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </div>
+                                                                                             End Price Range Section 
+                                            
+                                                                                             Start Community Poll Section 
+                                                                                            <div class="side-holder">
+                                                                                                <article class="price-range">
+                                                                                                    <h2>Community Poll</h2>
+                                                                                                    <div class="side-inner-holder">
+                                                                                                        <p>Who is your favourite American author?</p>
+                                                                                                        <label class="radio">
+                                                                                                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                                                                                                                Jane Austin
+                                                                                                        </label>
+                                                                                                        <label class="radio">
+                                                                                                            <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                                                                                                                William Blake
+                                                                                                        </label>
+                                                                                                        <label class="radio">
+                                                                                                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                                                                                                                Keith Urban
+                                                                                                        </label>
+                                                                                                        <label class="radio">
+                                                                                                            <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                                                                                                                Anna Smith
+                                                                                                        </label>
+                                                                                                        <a href="#" class="vote-btn">Vote</a>
+                                                                                                    </div>
+                                                                                                </article>
+                                                                                            </div>
+                                                                                             End Community Poll Section 
+                                            
+                                                                                        </section>-->
                                             <!-- End Main Side Bar -->
                                         </section>
                                     </section>
@@ -307,11 +312,11 @@
                                     </style>
                                 </noscript>
                                 <script type="text/javascript">
-                                    /* <![CDATA[ */
-                                    $(document).ready(function () {
-                                        $('.social_active').hoverdir({});
-                                    })
-                                    /* ]]> */
+                                                                                /* <![CDATA[ */
+                                                                                $(document).ready(function () {
+                                                                                    $('.social_active').hoverdir({});
+                                                                                })
+                                                                                /* ]]> */
                                 </script>
                             </body>
                             </html>
