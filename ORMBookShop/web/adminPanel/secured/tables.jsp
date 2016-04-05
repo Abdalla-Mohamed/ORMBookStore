@@ -27,7 +27,7 @@
             <!-- main content start-->
             <div class="main-content main-content4">
                 <!-- header-starts -->
-                <%@include file='header.jsp'%>
+                <%--<%@include file='header.jsp'%>--%>
                 <!-- //header-ends -->
                 <div id="page-wrapper">
                     <div class="graphs">
@@ -134,7 +134,7 @@
                                                             <h4>Price* :</h4>
                                                         </div>
                                                         <div class="sign-up2">
-                                                            <input name="price" type="text" placeholder=" " required=" " min="1"  oninput="validity.valid||(value='');"  value="${updateBook.BPrice}"/>
+                                                            <input name="price" type="number" placeholder=" " required=" " min="1"  oninput="validity.valid||(value='');"  value="${updateBook.BPrice}"/>
                                                         </div>
                                                         <div class="clearfix"> </div>
                                                     </div>
@@ -215,9 +215,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button class="btn-success btn centerBtn">Add new Book</button>
+                                                    <!--<button class="btn-success btn centerBtn" onclick="sign-up.jsp">Add new Book</button>-->
                                 <!-- <a href="#" class="bt_green"><span class="bt_green_lft"></span><strong>Add new item</strong><span class="bt_green_r"></span></a> -->
-                            </div>
+                                <center> <a href="sign-up.jsp"><input type="button" value="Add New Book"></button> </a></center>
+<!--                            </div>
                             <div class="panel-body1">
                                 <table class="table">
                                     <thead>
@@ -369,7 +370,7 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                </div><!-- /.table-responsive -->
+                                </div> /.table-responsive 
                                 <div class="table-responsive">
                                     <table class="table table-bordered">
                                         <thead>
@@ -413,7 +414,7 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                </div><!-- /.table-responsive -->
+                                </div> /.table-responsive -->
                             </div>
                         </div>
                     </div>
