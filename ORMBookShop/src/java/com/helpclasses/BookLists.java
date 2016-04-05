@@ -9,6 +9,7 @@ import com.beans.Book;
 import com.beans.Book;
 import com.daos.BookCategoriesDao;
 import com.daos.Book_Dao;
+import com.daos.Category_Dao;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -22,6 +23,7 @@ public class BookLists {
 
     Book_Dao bookDao;
     BookCategoriesDao bookCatDao;
+    Category_Dao categoryDao= new Category_Dao();
     public BookLists() {
         bookDao = new Book_Dao();
         bookCatDao=new BookCategoriesDao();
@@ -32,12 +34,18 @@ public class BookLists {
 
         try {
             books = bookDao.readAll();
-            System.out.println("in lists");
-             for (Book bookList1 : books) {
-                System.out.println(bookList1.getBFrontImg());
-            }
-            System.out.println("");
-        } catch (SQLException ex) {
+                 } catch (SQLException ex) {
+            Logger.getLogger(BookLists.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return books;
+    }
+    public List<Book> getAdminBooks() {
+        List<Book> books = null;
+
+        try {
+            books = bookDao.readAdminAll();
+                 } catch (SQLException ex) {
             Logger.getLogger(BookLists.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -71,11 +79,11 @@ public class BookLists {
         return book;
     }
     
-    public List<Book> getBooksByCategory(int CatId){
+    public List<Book> getBooksByCategory(int catId){
         List<Book>books=null;
         
         try {
-            books=bookCatDao.getBooksByCategory(CatId);
+            books=categoryDao.getBooksByCategory(catId);
         } catch (SQLException ex) {
             Logger.getLogger(BookLists.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -86,7 +94,7 @@ public class BookLists {
         List<Book>books=null;
         
         try {
-            books=bookCatDao.getBooksWithNoCategory();
+            books=bookDao.getBooksWithNoCategory();
         } catch (SQLException ex) {
             Logger.getLogger(BookLists.class.getName()).log(Level.SEVERE, null, ex);
         }

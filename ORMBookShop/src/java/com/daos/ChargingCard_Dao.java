@@ -15,8 +15,6 @@ import com.utilts.DbConnctor;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.hibernate.Query;
 
 /**
@@ -113,107 +111,93 @@ public class ChargingCard_Dao {
         return cardLists;
     }
     
-    public List<ChargingCard> getAllCardNumber(int amount) throws SQLException {
+    public List<ChargingCard> getAllCardNumber(int amount, int count) throws SQLException {
         
         List<ChargingCard> chargingCardList = new ArrayList<>();
         try {
             session = DbConnctor.opensession();
             session.beginTransaction();
-            Query query = session.createQuery("select c.cardNumber from ChargingCard c where c.cardPrinted =:cardPrinted and c.cardAmount=:cardAmount")
-                        .setParameter("cardPrinted", 'F')
-                        .setParameter("cardAmount", amount);
+            Query query = session.createQuery("select c from ChargingCard c where c.cardStatus =:cardStatus and c.cardAmount=:cardAmount")
+                        .setParameter("cardStatus", 'F')
+                        .setParameter("cardAmount", amount)
+                        .setMaxResults(count);
             
                   chargingCardList=query.list();
+            System.out.println("getAllCardNumber"+chargingCardList);
                   
                   session.getTransaction().commit();
-            System.out.println("fffffffffff"+chargingCardList);
-        //    resultSet = statement.executeQuery("UPDATE CHARGING_CARD SET CARD_PRINTED = 'T'");
+                  return chargingCardList;
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return chargingCardList;
     }
     
-    public int charge(String num){
-        int i = 0;
+    public List<ChargingCard> getAllCardNumberCharged() throws SQLException
+    {
+        List<ChargingCard> chargingCardList = new ArrayList<>();
         try {
-            
+            session = DbConnctor.opensession();
+            session.beginTransaction();
+            Query query = session.createQuery("select c.cardNumber from ChargingCard c where c.cardPrinted =:cardPrinted")
+                        .setParameter("cardPrinted", 'F');            
+                  chargingCardList=query.list();
+            System.out.println("charged "+chargingCardList);
+                  
+                  session.getTransaction().commit();
+                  return chargingCardList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return chargingCardList;
+    }
+    public Object charge(String cardNumber){
+      Object result=null;
+        try {
+               
                     session = DbConnctor.opensession();
-                    Query query = session.createQuery("select c.cardAmount from ChargingCard c where c.cardNumber =:cardNumber")
-                        .setParameter("cardNumber", num);
-//                    statement = session.createStatement();
+                    session.beginTransaction();
+                    Query query = session.createQuery("select c.cardAmount from ChargingCard c where c.cardNumber =:cardNumber and c.cardStatus =:cardStatus")
+                        .setParameter("cardNumber",cardNumber)
+                        .setParameter("cardStatus", 'F');
                     
-//                    resultSet = statement.executeQuery("select CARD_AMOUNT from  CHARGING_CARD where CARD_NUMBER = '"+num+"'");
-//      
-//                    
-//                     while (resultSet.next()) { 
-//                         i = resultSet.getInt("CARD_AMOUNT");
-//                     }
-                    return i;
+                    result = query.uniqueResult();
+                    session.getTransaction().commit();
+
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-//        resultSet = statement.executeQuery("SELECT C_CREDIT FROM CUSTOMER WHERE C_ID = '"+c.getCId()+"'");
-
-//        try {
-//            while (resultSet.next()) {
-//                try {
-//                    int cridet = resultSet.getInt("C_CREDIT");
-//                } catch (SQLException ex) {
-//                    Logger.getLogger(ChargingCard_Dao.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//                
-//            }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(ChargingCard_Dao.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-            
-            
-//            statement = session.createStatement();
-//            resultSet = statement.executeQuery("UPDATE CUSTOMER SET C_CREDIT WHERE C_ID = '"+c.getCId()+"'");
-
-//            while (resultSet.next()) {                
-//                int i = Integer.parseInt(resultSet.getString("C_CREDIT"));
-//                               
-//            }
-        return i;
+        return result;
           
     }
     
-    public boolean update (Customer c) throws SQLException{
-                
-        boolean updated;              
-        try {
-            
-            session = DbConnctor.opensession();
-            session = DbConnctor.opensession();
-            session.getTransaction().begin();
-            session.merge(c);
-            session.getTransaction().commit();
-//            statement = session.createStatement();
-//            resultSet = statement.executeQuery("SELECT C_CREDIT FROM CUSTOMER WHERE C_ID = '"+c.getCId()+"'");
-//
-//            while (resultSet.next()) {                
-//                int i = resultSet.getInt("C_CREDIT");
-//                               
-//            }
-            
-            
-//            statement = session.createStatement();
-//            resultSet = statement.executeQuery("UPDATE CUSTOMER SET C_CREDIT WHERE C_ID = '"+c.getCId()+"'");
-//
-//            while (resultSet.next()) {                
-//                int i = Integer.parseInt(resultSet.getString("C_CREDIT"));
-//                               
-//            }
-            
-            updated=true;
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(Customer_Dao.class.getName()).log(Level.SEVERE, null, ex);
-            updated=false;
-        }
+    public boolean updateCardStatus(String cardNumber) throws SQLException
+    {
+        boolean updated=false;
+        
+        session = DbConnctor.opensession();
+        session.getTransaction().begin();
+        Query query = session.createQuery("update ChargingCard c set c.cardStatus = :cardStatus where c.cardNumber =:cardNumber")
+                    .setParameter("cardStatus", 'T')
+                    .setParameter("cardNumber", cardNumber);
+            query.executeUpdate();
+        session.getTransaction().commit();
+
         return updated;
+    }
+    public List<ChargingCard> updateCardPrinted(List<ChargingCard> cardNumber) throws SQLException
+    {
+        List<ChargingCard> list = new ArrayList<>();
+        session = DbConnctor.opensession();
+        session.getTransaction().begin();
+        Query query = session.createQuery("update ChargingCard c set c.cardPrinted = :cardPrinted where c.cardNumber =:cardNumber")
+                    .setParameter("cardPrinted", 'T')
+                    .setParameter("cardNumber", cardNumber);
+            query.executeUpdate();
+        list = query.list();
+        session.getTransaction().commit();
+        
+        return list;
     }
     
 }

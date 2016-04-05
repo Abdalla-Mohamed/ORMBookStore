@@ -7,7 +7,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="com.beans.ChargingCardList" %>
-<jsp:useBean id="chargingCardList" scope="page" class="com.beans.ChargingCardList"/>    
+<jsp:useBean id="chargingCardList" scope="page" class="com.beans.ChargingCardList"/>  
+<%@page import="com.beans.ChargingCard" %>
+<jsp:useBean id="chargingCard" scope="session" class="com.beans.ChargingCard"/>
+
 
 
 <!DOCTYPE HTML>
@@ -237,10 +240,10 @@
                                 </thead>
                                 <tbody>
                                     
-                                    <c:forEach items="${sessionScope.charger}" var="change" varStatus="loopCounter">
+                                    <c:forEach items="${sessionScope.charger}" var="charg" varStatus="loopCounter">
                                     <tr >
                                         <th scope="row">${loopCounter.count}</th>
-                                        <td><c:out value="${change.getCardNumber()}"/></td>
+                                        <td><c:out value="${charg.getCardNumber()}"/></td>
                                     </tr>
                                     </c:forEach>
                                 </tbody>

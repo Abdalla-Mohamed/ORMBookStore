@@ -41,22 +41,23 @@ public class OrderController {
         List<Cart> customerCart = cartController.getCustomerCart(customerId);
 
         if (isOrderValid(customerCart, total)) {
-            if (updateClientAndBooks(customerCart,total)) {
+            if (updateClientAndBooks(customerCart, total)) {
                 if (cartController.freeCart(customerId)) {
-                    List<OrderBook> orderBooks = getOrederItems(customerCart);
-                    Orders newOrders = new Orders(new Date(), total, new HashSet<OrderBook>(orderBooks), new Customer(customerId));
+                    Orders newOrders = new Orders(new Date(), total, null, new Customer(customerId));
+                    List<OrderBook> orderBooks = getOrederItems(customerCart,newOrders);
+                    newOrders.setOrderBooks(new HashSet<OrderBook>(orderBooks));
                     orderDao.addOrder(newOrders);
-                    isDone =true;
+                    isDone = true;
                 }
             }
         }
         return isDone;
     }
 
-    private List<OrderBook> getOrederItems(List<Cart> customerCart) {
+    private List<OrderBook> getOrederItems(List<Cart> customerCart,Orders newOrders) {
         List<OrderBook> orderBooks = new ArrayList<>();
         for (Cart item : customerCart) {
-            OrderBook orderBook = new OrderBook(item.getCBCount(), item.getBook(), null);
+            OrderBook orderBook = new OrderBook(null, item.getBook(), newOrders, item.getCBCount());
             orderBooks.add(orderBook);
         }
         return orderBooks;
@@ -91,6 +92,9 @@ public class OrderController {
 
     private boolean isOrderValid(List<Cart> customerCart, double total) {
         boolean isValid = false;
+        if (customerCart.isEmpty()) {
+            return false;
+        }
         try {
             double cridt = new Customer_Dao().getCustomerCredit(customerCart.get(0).getCustomer().getCId());
 

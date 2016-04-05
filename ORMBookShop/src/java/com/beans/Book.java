@@ -245,19 +245,19 @@ public class Book  implements java.io.Serializable {
         this.carts = carts;
     }
 
-@ManyToMany(fetch=FetchType.LAZY)
-    @JoinTable(name="BOOK_AUTH", schema="BOOKSTORE", joinColumns = { 
-        @JoinColumn(name="BOOK_ID", nullable=false, updatable=false) }, inverseJoinColumns = { 
-        @JoinColumn(name="AUTHOR_ID", nullable=false, updatable=false) })
-    public Set<Author> getAuthors() {
-        return this.authors;
-    }
-    
-    public void setAuthors(Set<Author> authors) {
-        this.authors = authors;
-    }
+//@ManyToMany(fetch=FetchType.LAZY)
+//    @JoinTable(name="BOOK_AUTH", schema="BOOKSTORE", joinColumns = { 
+//        @JoinColumn(name="BOOK_ID", nullable=false, updatable=false) }, inverseJoinColumns = { 
+//        @JoinColumn(name="AUTHOR_ID", nullable=false, updatable=false) })
+//    public Set<Author> getAuthors() {
+//        return this.authors;
+//    }
+////    
+//    public void setAuthors(Set<Author> authors) {
+//        this.authors = authors;
+//    }
 
-@ManyToMany(fetch=FetchType.LAZY)
+@ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(name="BOOK_CATEGORY", schema="BOOKSTORE", joinColumns = { 
         @JoinColumn(name="BOOK_ID", nullable=false, updatable=false) }, inverseJoinColumns = { 
         @JoinColumn(name="CATG_ID", nullable=false, updatable=false) })

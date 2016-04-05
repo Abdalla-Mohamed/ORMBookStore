@@ -116,7 +116,7 @@ public class BookCategoriesDao {
         List<Book> list = null;
         try {
             session = DbConnctor.opensession();
-//            statement = session.prepareStatement(BOOKS_WITH_NO_CATEGORY);
+          //  statement = session.prepareStatement(BOOKS_WITH_NO_CATEGORY);
             result = statement.executeQuery();
             list = getBooks(result);
 

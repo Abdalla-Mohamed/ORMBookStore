@@ -46,6 +46,16 @@ public class CartController {
         }
         return added;
     }
+    public boolean removeItemfromCart(Cart cart) {
+        boolean removed = false;
+        try {
+                removed = cartDao.delete(cart);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CartController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return removed;
+    }
 
     public List<Cart> getCustomerCart(int customerId) {
         List<Cart> theCart = null;
