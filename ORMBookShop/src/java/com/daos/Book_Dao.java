@@ -226,7 +226,7 @@ public class Book_Dao {
         
         Book book= readByIsbn(bookId);
         Category_Dao cDao =new Category_Dao();
-        Category category= cDao.readById(bookId);
+        Category category= cDao.readById(categoryID);
         book.getCategories().add(category);
         return update(book);
     }
